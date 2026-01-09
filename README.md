@@ -1,4 +1,4 @@
-# Your startup name here
+# Date Deck 💕
 
 [My Notes](notes.md)
 
@@ -17,45 +17,41 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+If you're a romantic like me, I'm sure you've found yourself constantly mentioning things you want to do with your significant other. But after only a couple of weeks of dating, you've already forgotten half the things you wanted to do and aren’t sure what to pick for your next date activity. May I present to you, DateDeck: an app that will ensure that your date ideas are never lost in the wind. DateDeck will keep track of any date idea you have and organize it into a deck, which you can look through and pull randomly out of when the date night arrives.
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](c:\Users\icedr\Downloads\Logindatedeck.png)
+(c:\Users\icedr\Downloads\homeDatedeck.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+After creating an account, the user will open the application to the hompage consisting of the main feature, adding a date card to your deck. There will be two other pages the user can navigate to at the bottom of the screen. The first is to see their deck and have the option to randomly draw a card from it. The second is the social feed from other users’ dates.
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Add a date idea
+- Ask for a random idea with optional specifications from your deck, or a general deck
+- View your deck of date ideas
+- Post about your date to your frineds
+- View your frineds posts about their dates
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - To organize the date cards in a managable fasion.
+- **CSS** - To make the application cute and appealing to couples.
+- **React** - To build all dynamic UI such as their decks or posting options.
+- **Service** - To build the logic behind how the random card picker and other similar elements work.
+- **DB/Login** - To save the users profile, posts, dates, and so on.
+- **WebSocket** - To see other users posts and to send posts to the page.
 
 ## 🚀 AWS deliverable
 
