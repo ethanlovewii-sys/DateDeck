@@ -29,8 +29,9 @@ If you're a romantic like me, I'm sure you've found yourself constantly mentioni
 
 ### Design
 
-![Design image](c:\Users\icedr\Downloads\Logindatedeck.png)
-(c:\Users\icedr\Downloads\homeDatedeck.png)
+![The home page for Date Deck](homeDatedeck.png)
+![The create your profile page for Date Deck](LoginDateDeck.png)
+
 
 After creating an account, the user will open the application to the hompage consisting of the main feature, adding a date card to your deck. There will be two other pages the user can navigate to at the bottom of the screen. The first is to see their deck and have the option to randomly draw a card from it. The second is the social feed from other users’ dates.
 
