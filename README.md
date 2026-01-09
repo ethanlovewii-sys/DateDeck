@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Date Deck will be an application for couples looking to streamline their date nights. Users will be able to add a date idea as a card to their deck, and when the night comes, they can look through their ideas or randomly draw a card. Additionally, users will be able to post their dates to their friends and get ideas by scrolling through their friends' posts.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -29,8 +29,9 @@ If you're a romantic like me, I'm sure you've found yourself constantly mentioni
 
 ### Design
 
-![Design image](c:\Users\icedr\Downloads\Logindatedeck.png)
-(c:\Users\icedr\Downloads\homeDatedeck.png)
+![The home page for Date Deck](homeDatedeck.png)
+![The create your profile page for Date Deck](LoginDateDeck.png)
+
 
 After creating an account, the user will open the application to the hompage consisting of the main feature, adding a date card to your deck. There will be two other pages the user can navigate to at the bottom of the screen. The first is to see their deck and have the option to randomly draw a card from it. The second is the social feed from other users’ dates.
 
