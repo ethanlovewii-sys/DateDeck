@@ -65,15 +65,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I added an Index(login), card, deck, and social page.
+- [x] **Proper HTML element usage** - I looked at varius examples and ended up useing a lot of div to organize the date cards. I also inlcuded button, span, header, footer, main, nav, img, and more.
+- [x] **Links** - The navigation uses links to jump between pages.
+- [x] **Text** - Simple prompts are used to guide users, and each card and social post have their dectiptions.
+- [x] **3rd party API placeholder** - The card and social pages have buttons that will use 3rd party calls to submit pictures.
+- [x] **Images** - Images are used on the deck and social pages as part of the date cards.
+- [x] **Login placeholder** - The Index page is the login page and the social page has the username display.
+- [x] **DB data placeholder** - The cards displayed on the deck page will be pulled form a data base.
+- [x] **WebSocket placeholder** - The social page will use websocket to create a socail feed similar to instagram.
 
 ## 🚀 CSS deliverable
 
