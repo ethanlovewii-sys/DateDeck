@@ -47,12 +47,13 @@ After creating an account, the user will open the application to the hompage con
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - To organize the date cards in a managable fasion.
+- **HTML** - Authentication - allow users to log in to their account.
+           - Redering - to render the user's date cards and other users' posts. 
 - **CSS** - To make the application cute and appealing to couples.
-- **React** - To build all dynamic UI such as their decks or posting options.
-- **Service** - To build the logic behind how the random card picker and other similar elements work.
-- **DB/Login** - To save the users profile, posts, dates, and so on.
-- **WebSocket** - To see other users posts and to send posts to the page.
+- **React** - To build all dynamic UI, such as their decks or posting options.
+- **Service** - To enable an AI date idea generator. The app will make a call to the AI agent.
+- **DB/Login** - To save the user's profile, posts, dates, and so on.
+- **WebSocket** - To see other users' posts and to send posts to the page.
 
 ## 🚀 AWS deliverable
 
