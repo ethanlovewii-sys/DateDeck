@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Tell browsers not to scale the viewport automatically -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DateDeck</title>
+  </head>
+  <body>
+    <!-- Use header, main, and footer elements to give semantic structure -->
+    <header>
+      <img src = "Resources/datedeck.png" width = 200>
+      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
+      <hr />
+    </header>
+
+    <main>
+      <h1>Create Your Account</h1>
+      <form method="get" action="play.html">
+        <div>
+          <input type="text" placeholder="✉ Email" />
+        </div>
+        <div>
+          <input type="password" placeholder="🗝️ Password" />
+        </div>
+        <div> 
+            <input type="checkbox" id="remember" name="remember"> 
+            <label for="remember">Remember me</label>
+        </div> 
+        <button type="submit">Sign up / Log in</button>
+      </form>
+    </main>
+
+    <footer>
+      <hr />
+      <span class="text-reset">Ethan Andrew Peterson</span>
+      <br />
+      <a href="https://github.com/ethanlovewii-sys/DateDeck">GitHub</a>
+    </footer>
+  </body>
+</html>
