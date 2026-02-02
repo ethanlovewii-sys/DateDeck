@@ -7,3 +7,17 @@
 .btn.custom-btn:hover {
   background-color: #c73434; /* Slightly lighter on hover */
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex: 1
+}
+
+footer{
+    background-color: rgb(243, 243, 243);
+}

@@ -7,6 +7,7 @@
     <title>DateDeck</title>
 
     <link rel="stylesheet" href="index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Include bootstrap CSS framework -->
     <link
@@ -19,8 +20,9 @@
   </head>
 
   <body>
+
     <header class = "container-fluid">
-      <img src = "Resources/datedeck.png" width = 200 class = "mx-auto d-block mb-4">
+      <img src = "Resources/datedeck.png" width = 200 class = "mx-auto d-block mb-5">
     </header>
 
     <main class = text-center>
@@ -38,18 +40,17 @@
           <label for="password">🗝️ Password</label>
         </div>
 
-        <div class="form-check mb-3"> 
-            <input class="form-check-imput" type="checkbox" value="" id="remember"> 
+        <div class="form-check mb-3 text-start ps-0"> 
+            <input class="form-check-impu" type="checkbox" value="" id="remember"> 
             <label class="form-check-label" for="remember">Remember me</label>
         </div> 
+        
         <button type="submit" class="btn btn-primary w-100 custom-btn">Sign up / Log in</button>
       </form>
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Ethan Andrew Peterson</span>
-      <br />
+    <footer class="d-flex justify-content-between align-items-center px-3 border-top">
+      <span>Ethan Andrew Peterson</span>
       <a href="https://github.com/ethanlovewii-sys/DateDeck">GitHub</a>
     </footer>
   </body>
