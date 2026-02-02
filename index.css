@@ -1,3 +1,9 @@
-header {
-    
+.btn.custom-btn {
+  background-color: #ae2828; /* Hot pink */
+  color: white; /* Text color */
+  border: none; /* Remove border if you want */
+}
+
+.btn.custom-btn:hover {
+  background-color: #c73434; /* Slightly lighter on hover */
 }

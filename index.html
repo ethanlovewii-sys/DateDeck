@@ -19,24 +19,30 @@
   </head>
 
   <body>
-    <header>
-      <img src = "Resources/datedeck.png" width = 200>
+    <header class = "container-fluid">
+      <img src = "Resources/datedeck.png" width = 200 class = "mx-auto d-block mb-4">
     </header>
 
-    <main>
-      <h1>Create Your Account</h1>
-      <form method="get" action="card.html">
-        <div>
-          <input type="text" placeholder="✉ Email" />
+    <main class = text-center>
+      <h1 class="mb-4">Create Your Account</h1>
+
+      <form method="get" action="card.html" class="mx-auto" style="max-width: 350px;">
+
+        <div class="form-floating mb-3">
+          <input type="email" placeholder="✉ Email" class="form-control" id="email"/>
+          <label for="email">✉ Email</label>
         </div>
-        <div>
-          <input type="password" placeholder="🗝️ Password" />
+
+        <div class = "form-floating mb-3">
+          <input type="password" placeholder="🗝️ Password" class="form-control" id="password"/>
+          <label for="password">🗝️ Password</label>
         </div>
-        <div> 
-            <input type="checkbox" id="remember" name="remember"> 
-            <label for="remember">Remember me</label>
+
+        <div class="form-check mb-3"> 
+            <input class="form-check-imput" type="checkbox" value="" id="remember"> 
+            <label class="form-check-label" for="remember">Remember me</label>
         </div> 
-        <button type="submit">Sign up / Log in</button>
+        <button type="submit" class="btn btn-primary w-100 custom-btn">Sign up / Log in</button>
       </form>
     </main>
 
