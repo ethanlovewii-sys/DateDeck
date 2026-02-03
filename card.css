@@ -1,0 +1,29 @@
+header{
+    padding-top: 70px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; /* remove default margin */
+}
+
+
+.card-button{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.card-button img{
+    transition: tranform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-button:hover img{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
