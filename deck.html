@@ -4,35 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DateDeck</title>
+
+    <link rel="stylesheet" href="deck.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
   </head>
+
   <body>
+
     <header>
-      <img src = "Resources/titledatedeck.png" width = 200>
-      <hr />
+      <a href="index.html">
+      <img src = "Resources/titledatedeck.png" width = 200 class = "mx-auto d-block">
+      </a>
     </header>
 
     <main>
         <div class="date-deck">
 
-            <div class="date-card">
-                <h3 class="card-number">1❤︎</h3>
-                <h3 class="card-title">Go to the Arcade!</h3>
+            <div class="date-card active">
+                <h3 class="card-number">2❤︎</h3>
+                <h3 class="card-title text-center pb-2 pt-1">Go to the Arcade!</h3>
                 <img src="Resources/date_img_placeholder.jpeg" width = 300>
-                <p class="card-description">The nickle arcade by In and Out. Afterwards we can grab a bite to eat there.</p>
+                <div class="card-description">
+                  <p class="description">Details:</p>
+                  <p>The nickle arcade by In and Out. Afterwards we can grab a bite to eat there.</p>
+                </div>
                 <div class="card-tags">
                     <span>Indoor</span>
                     <span>Cheap</span>
                     <span>Exciting</span>
                 </div>
-                <span>
-                    <button>Use card</button>
-                </span>
+                <h3 class="bottom-card-number">2❤︎</h3>
             </div>
-            
-            <button>Swipe -></button>
+          
+            <div class="date-card">
+                <h3 class="card-number">3❤︎</h3>
+                <h3 class="card-title text-center pb-2 pt-1">Ice skating!</h3>
+                <img src="Resources/date_img_placeholder2.jpeg" width = 300>
+                <p class="card-description">Description: The one in Provo. Jack said to try the night skating.</p>
+                <div class="card-tags">
+                    <span>Winter</span>
+                    <span>Cheap</span>
+                    <span>Active</span>
+                </div>
+                <h3 class="bottom-card-number">3❤︎</h3>
+            </div>
 
             <div class="date-card">
-                <h3 class="card-number">2❤︎</h3>
+                <h3 class="card-number">1❤︎</h3>
                 <h3 class="card-title">Ice skating!</h3>
                 <img src="Resources/date_img_placeholder2.jpeg" width = 300>
                 <p class="card-description">The one in Provo. Jack said to try the night skating.</p>
@@ -41,19 +65,20 @@
                     <span>Cheap</span>
                     <span>Active</span>
                 </div>
+                <h3 class="bottom-card-number">w-100</h3>
             </div>
+
         </div>
         <button>⊞ View all cards</button>
     </main>
 
-    <footer>
-      <hr />
+    <footer class="fixed-bottom border-top" style="height: 70px;">
       <nav>
-        <menu>
-            <li><a href="card.html"> <img src="Resources/card_icon.png" width="40"></a></li>
-            <li><a href="deck.html"> <img src="Resources/deck_icon.png" width="45"></a></li>
-            <li><a href="social.html"> <img src="Resources/socail_icon.png" width="50"></a></li>
-        </menu>
+          <ul class="d-flex justify-content-around align-items-center m-0 p-2 list-unstyled" style="max-width: 400 px; width: 100%;">
+            <li><a href="card.html"> <img src="Resources/card_icon.png" height="50" class="card-icon"></a></li>
+            <li><a href="deck.html"> <img src="Resources/deck_icon_active.png" height="50"></a></li>
+            <li><a href="social.html"> <img src="Resources/socail_icon.png" height="50" class="p-1"></a></li>
+          </ul>
       </nav>
     </footer>
   </body>
