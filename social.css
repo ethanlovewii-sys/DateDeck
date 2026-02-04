@@ -55,3 +55,130 @@ main{
 }
 
 
+.feed-post {
+    background: #fafafa;                 /* White card like Instagram posts */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    overflow: hidden;                 /* Ensures rounded corners apply to images */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0 auto;
+    border-radius: 16px;
+    border-style: ridge;
+    border-color: black;
+    margin-bottom: 20px;
+}
+
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;                        /* Space between avatar + username */
+    padding: 10px;
+}
+
+.post-header img {
+    border-radius: 50%;               /* Circular avatar */
+}
+
+.username {
+    font-weight: bold;
+}
+
+.post-time {
+    margin-left: auto;                /* Push timestamp to the right */
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.post-card {
+    padding: 10px;
+    text-align: center;
+}
+
+.card-number {
+    font-size: 1rem;
+    margin: 0 auto;
+    font-size: 22px;
+}
+
+.post-card{
+    padding: 10px;
+    padding-top: 0;
+    text-align: center;
+}
+
+.post-card img {
+    width: 100%;                      /* Full width like Instagram photos */
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.card-title {
+    text-align: left;
+    padding-left: 10px;
+    padding: 7px;
+    background: rgb(255, 243, 243);
+    border-radius: 5px;
+}
+
+.card-description {
+    text-align: left;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.card-tags{
+    display: flex;
+    gap:15px;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.card-tags span{
+    display: inline-block;
+    background: #f1f1f1;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 7px;
+    border-top: 1px solid #eee;
+}
+
+.post-actions button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+}
+
+footer {
+    position: fixed;          /* fixed-bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;             /* inline style you had */
+    background: #fff;
+    border-top: 1px solid #ddd;   /* border-top */
+    z-index: 1000;            /* keep it above content */
+}
+
+
+.footer-nav {
+    display: flex;   
+    flex-direction: row;
+    justify-content: space-around; /* justify-content-around */
+    align-items: center;           /* align-items-center */
+    margin: 0;                     /* m-0 */
+    padding: 10px;                 /* p-2 (Bootstrap p-2 = 0.5rem ≈ 8px) */
+    list-style: none;              /* list-unstyled */
+    max-width: 500px;
+    width: 100%;
+    margin-inline: auto;           /* center the nav inside footer */
+}
