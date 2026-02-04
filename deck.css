@@ -137,7 +137,18 @@ main {
 }
 
 .all-cards-btn{
-    text-align: right;
+    display: flex;
+    margin: 0 auto;
+    justify-content: right;
+    margin-bottom: 10px;
+    max-width: 370px;
+}
+
+.custom-btn{
+    padding: 8px 13px;
+    border-radius: 8px;
+    border: 1px solid black;
+    background: white;
 }
 
 footer {
