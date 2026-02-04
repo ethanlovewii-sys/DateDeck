@@ -4,19 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DateDeck</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="social.css" />
+
   </head>
   <body>
+
     <header>
-      <img src = "Resources/titledatedeck.png" width = 200>
-      <hr />
+        <div class="header-inner">
+            <button class="plus header-left">+</button>
+            <a href="index.html" class="header-center">
+                <img src = "Resources/titledatedeck.png" width = 200 class = "mx-auto d-block">
+            </a>
+            <div class="header-right">
+                <img src="Resources/user-avatar-placeholder.jpg" alt="User Avatar" width = 40>
+                User
+            </div>
+        </div>
     </header>
 
     <main>
-        <span>👤Mystery User
-            <button>✎New post</button>
-            <button>See your unposted cards</button>
-        </span>
-
         <div class="social-feed">
         
         <div class="feed-post">
@@ -67,15 +80,15 @@
       </div>
     </main>
 
-    <footer>
-      <hr />
+    <footer class="fixed-bottom border-top" style="height: 70px;">
       <nav>
-        <menu>
-            <li><a href="card.html"> <img src="Resources/card_icon.png" width="40"></a></li>
-            <li><a href="deck.html"> <img src="Resources/deck_icon.png" width="45"></a></li>
-            <li><a href="social.html"> <img src="Resources/socail_icon.png" width="50"></a></li>
-        </menu>
+          <ul class="d-flex justify-content-around align-items-center m-0 p-2 list-unstyled" style="max-width: 400 px; width: 100%;">
+            <li><a href="card.html"> <img src="Resources/card_icon.png" height="50" class="card-icon"></a></li>
+            <li><a href="deck.html"> <img src="Resources/deck_icon.png" height="50"></a></li>
+            <li><a href="social.html"> <img src="Resources/socail_icon_active.png" height="50" class="p-1"></a></li>
+          </ul>
       </nav>
     </footer>
+
   </body>
 </html>

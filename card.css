@@ -1,14 +1,16 @@
 header{
-    padding-top: 4vh;
+    padding-top: 2.5vh;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0; /* remove default margin */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0; 
+    background: #fafafa !important;
+    font-family: Arial, sans-serif;
+    padding-bottom: 70px;
 }
-
 
 .card-button{
     background: none;

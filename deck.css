@@ -1,5 +1,12 @@
 header{
-    padding-top: 4vh;
+    padding-top: 2.5vh;
+}
+
+body{
+    background: #fafafa !important;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-bottom: 70px;
 }
 
 main {
