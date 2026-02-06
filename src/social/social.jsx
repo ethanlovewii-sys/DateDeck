@@ -1,5 +1,6 @@
 import React from 'react';
 import './social.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Social() {
   return (
@@ -8,9 +9,9 @@ export function Social() {
         
         <div className="feed-post">
             <div className="post-header">
-                <img src="/user-avatar-placeholder.jpg" alt="User Avatar"/>
+                <img className ="user-avatar" src="/user-avatar-placeholder.jpg" alt="User Avatar"/>
                 <span className="username">E&S</span>
-                <span className="card-number">12❤</span>
+                <span className="post-number">12❤</span>
                 <span className="post-time">3 days ago</span>
             </div>
             <div className="post-card">
@@ -31,9 +32,9 @@ export function Social() {
 
         <div className="feed-post">
             <div className="post-header">
-                <img src="/user-avatar-placeholder.jpg" alt="User Avatar"/>
+                <img className ="user-avatar" src="/user-avatar-placeholder.jpg" alt="User Avatar"/>
                 <span className="username">E&S</span>
-                <span className="card-number">12❤</span>
+                <span className="post-number">12❤</span>
                 <span className="post-time">2 hours ago</span>
             </div>
             <div className="post-card">

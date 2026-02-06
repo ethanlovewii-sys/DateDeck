@@ -1,5 +1,6 @@
 import React from 'react';
 import './deck.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Deck() {
   return (

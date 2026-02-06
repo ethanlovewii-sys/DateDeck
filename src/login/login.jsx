@@ -1,6 +1,7 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Login() {
   return (
