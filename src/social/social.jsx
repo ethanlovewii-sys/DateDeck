@@ -1,7 +1,7 @@
 import React from 'react';
 import './social.css';
 
-export function About() {
+export function Social() {
   return (
         <main>
         <div className="social-feed">

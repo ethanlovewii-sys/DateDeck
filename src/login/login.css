@@ -21,3 +21,7 @@ main{
 footer{
     background-color: rgb(243, 243, 243);
 }
+
+.login-form{
+    max-width: 350px;
+}
