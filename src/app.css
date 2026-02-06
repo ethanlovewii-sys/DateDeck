@@ -4,6 +4,9 @@
 
 .login-footer{
     height: 28px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .normal-header{
