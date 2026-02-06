@@ -90,9 +90,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - I used Vite to bundle my startup.
+- [x] **Components** - I brought all the code over from HTML with lots of modifications to have the right format.
+- [x] **Router** - I created the basic routing for the main, then created a header and footer that changes for the login screen.
 
 ## 🚀 React part 2: Reactivity deliverable
 
