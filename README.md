@@ -79,12 +79,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - No elements overflow. I used a clean white and red design with a structure similar to social media apps like Instagram.
+- [x] **Use of a CSS framework** - I used Bootstrap to do my buttons on the deck page and some alignment elements throughout.
+- [x] **All visual elements styled using CSS** -All visual elements were stylized useing CSS.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - Many flex boxes were used to center items and adjust size depending on view. Each page's main element stretches its width with the view.
+- [x] **Use of a imported font** - I imported Nunito for my deck page.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I used the element selector, class, and psedo selectors.
 
 ## 🚀 React part 1: Routing deliverable
 
