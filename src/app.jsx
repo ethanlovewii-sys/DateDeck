@@ -42,9 +42,30 @@ function Layout({children}) {
                 <footer className="normal-footer">
                     <nav>
                         <ul className="footer-nav">
-                            <li><NavLink to="/card"> <img src="/card_icon.png" width="50"/></NavLink></li>
-                            <li><NavLink to="/deck"> <img src="/deck_icon.png" width="50"/></NavLink></li>
-                            <li><NavLink to="/social"> <img src="/socail_icon.png" width="50"/></NavLink></li>
+                            <li>
+                                <NavLink to="/card">
+                                    {({ isActive }) => (
+                                    <img src={isActive ? "/card_icon_active.png" : "/card_icon.png"} className="footer-icon"/>
+                                )}
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink to="/deck">
+                                    {({ isActive }) => (
+                                    <img src={isActive ? "/deck_icon_active.png" : "/deck_icon.png"} className="footer-icon"/>
+                                )}
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink to="/social">
+                                    {({ isActive }) => (
+                                    <img src={isActive ? "/social_icon_active.png" : "/social_icon.png"} className="footer-icon"/>
+                                )}
+                                </NavLink>
+                            </li>
+
                         </ul>
                     </nav>
                 </footer>
@@ -67,3 +88,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+
