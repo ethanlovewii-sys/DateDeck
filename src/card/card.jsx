@@ -7,6 +7,16 @@ export function Card(){
 
     const [showForm, setShowForm] = React.useState(false);
 
+    const tags = ["Indoor", "Cheap", "Exciting"];
+    const [selectedTags, setSelectedTags] = React.useState([]);
+
+    const [tagOpen, setTagOpen] = React.useState(false);
+    const availableTags = ["Indoor", "Outdoor", "Cheap", "Expensive", "Active", "Relaxing", "Romantic", "Adventurous"];
+
+    function toggleTag(tag) {
+        setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
+    }
+
     function addCard(){
         setShowForm(true);
     }
@@ -27,17 +37,34 @@ export function Card(){
                 <form>
                     <div className="date-card active">
                         <h3 className="card-number">2❤︎</h3>
-                        <input type='text' placeholder='Date Title:' className="form-title text-center pb-1 pt-1" style={{opacity:1}}/>
-                        <img src="/date_img_placeholder.jpeg" className = "date-img"/>
-                        <div className="card-description">
-                        <p className="description">Details:</p>
-                        <p>The nickle arcade by In and Out. Afterwards we can grab a bite to eat there.</p>
-                        </div>
-                        <div className="card-tags">
-                            <span>Indoor</span>
-                            <span>Cheap</span>
-                            <span>Exciting</span>
-                        </div>
+                        <input type='text' placeholder='Date Title:' className="form-title text-center pb-1 pt-1"/>
+                        <img src="/card_form_img.jpg" className = "date-img"/>
+                        <textarea className='form-card-description' type='text' placeholder='Details about your date...'/>
+                        
+                        <div className="tag-selector">
+                            <div className="selected-chips" onClick={() => setTagOpen(v => !v)}>
+                                {selectedTags.length > 0
+                                ? selectedTags.map(t => <span key={t} className="chip">{t}</span>)
+                                : <span className="choose-tags">Choose tags</span>
+                                }
+                                <span className="caret">▾</span>
+                            </div>
+
+                            {tagOpen && (
+                                <div className="tag-dropdown">
+                                {availableTags.map(tag => (
+                                    <button
+                                    type="button"
+                                    key={tag}
+                                    className={`tag ${selectedTags.includes(tag) ? 'selected' : ''}`}
+                                    onClick={() => toggleTag(tag)}
+                                    >
+                                    {tag}
+                                    </button>
+                                ))}
+                                </div>
+                            )}
+                            </div>
                         <h3 className="bottom-card-number">2❤︎</h3>
                     </div>
                     <button className='save-btn' onClick={() => setShowForm(false)}>Save</button>
