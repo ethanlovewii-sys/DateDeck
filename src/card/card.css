@@ -35,3 +35,26 @@ body {
 .card-prompt{
     font-size: large;
 }
+
+.form-popup .date-card{
+    position: relative;
+    margin-top: 5vh;
+}
+
+
+.save-btn{
+    padding: 4px 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: 1px solid black;
+    background: white;
+    margin-left: 62%;
+}
+
+.form-title{
+    font-size: 1.5rem;
+    border: none;
+    background: rgb(255, 240, 240);
+    border-radius: 12px;
+    margin-bottom: 4px;
+}

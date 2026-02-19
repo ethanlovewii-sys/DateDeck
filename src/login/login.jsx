@@ -6,9 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export function Login() {
   const navigate = useNavigate();
 
+  // State variables for email and password, initialized with values from localStorage if available
   const [email, setEmail] = React.useState(localStorage.getItem("email") || "");
   const [password, setPassword] = React.useState("");
 
+  // Function to handle user login
   async function loginUser() {
     if (localStorage.getItem("email") === email) {
       if (localStorage.getItem("password") === password) {
@@ -29,6 +31,7 @@ export function Login() {
     navigate('/card');
   }
 
+  // JSX for the login form
   return (
     <main className = "text-center">
       <h1 className="mb-4">Create Your Account</h1>
