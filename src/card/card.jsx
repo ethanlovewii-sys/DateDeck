@@ -3,11 +3,16 @@ import './card.css';
 import '../deck/deck.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// add custom picture option
+
 export function Card(){
 
     const [showForm, setShowForm] = React.useState(false);
 
-    const tags = ["Indoor", "Cheap", "Exciting"];
+    const [title, setTitle] = React.useState("");
+    const [titleIndex, setTitleIndex] = React.useState(localStorage.getItem("titleIndex") || 1);
+    const [description, setDescription] = React.useState("");
+
     const [selectedTags, setSelectedTags] = React.useState([]);
 
     const [tagOpen, setTagOpen] = React.useState(false);
@@ -18,7 +23,12 @@ export function Card(){
     }
 
     function addCard(){
+        setTitle("");
+        setDescription("");
+        setSelectedTags([]);
+        setTagOpen(false);
         setShowForm(true);
+        setTitleIndex(localStorage.getItem("titleIndex") || 1);
     }
 
     return (
@@ -36,10 +46,10 @@ export function Card(){
                 <div className="form-popup">
                 <form>
                     <div className="date-card active">
-                        <h3 className="card-number">2❤︎</h3>
-                        <input type='text' placeholder='Date Title:' className="form-title text-center pb-1 pt-1"/>
+                        <h3 className="card-number">{titleIndex}❤︎</h3>
+                        <input type='text' placeholder='Date Title:' className="form-title text-center pb-1 pt-1" value={title} onChange={(e) => setTitle(e.target.value)}/>
                         <img src="/card_form_img.jpg" className = "date-img"/>
-                        <textarea className='form-card-description' type='text' placeholder='Details about your date...'/>
+                        <textarea className='form-card-description' type='text' placeholder='Details about your date...' value={description} onChange={(e) => setDescription(e.target.value)}/>
                         
                         <div className="tag-selector">
                             <div className="selected-chips" onClick={() => setTagOpen(v => !v)}>
@@ -65,9 +75,9 @@ export function Card(){
                                 </div>
                             )}
                             </div>
-                        <h3 className="bottom-card-number">2❤︎</h3>
+                        <h3 className="bottom-card-number">{titleIndex}❤︎</h3>
                     </div>
-                    <button className='save-btn' onClick={() => setShowForm(false)}>Save</button>
+                    <button className='save-btn' onClick={() => {setShowForm(false); localStorage.setItem(`title${titleIndex}`, title); localStorage.setItem(`description${titleIndex}`, description); localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags)); localStorage.setItem("titleIndex", parseInt(titleIndex) + 1)}}>Save</button>
                 </form>
                 </div>
             )}

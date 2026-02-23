@@ -31,6 +31,7 @@ main {
     left: 0;
     right: 0;
     width: 80%;
+    min-height: 52vh;
     background: #fff;
     margin: 0 auto;
     border-radius: 16px;
@@ -78,13 +79,18 @@ main {
     border-radius: 8px;
     padding: 5px;
     text-decoration: underline;
-    text-decoration-thickness: 0.1px;
+    text-decoration-thickness: 0.01px;
+    border: none;
 }
 
 .description{
     opacity: 0.8;
     text-decoration-thickness: 0;
     margin: 0;
+    border: none;
+    min-height: 100px;
+    background-color: rgb(248, 248, 248);
+    width: 100%;
 }
 
 .card-title{
@@ -98,13 +104,13 @@ main {
     z-index: 3;
 }
 
-.date-card:nth-child(2){
+.date-card.right{
     opacity: 1;
     z-index: 1;
     transform: scale(0.999) translateX(25px) translateY(12px);
 }
 
-.date-card:nth-child(3){
+.date-card.left{
     opacity: 1;
     z-index: 2;
     transform: scale(0.999) translateX(-25px) translateY(12px);
@@ -122,12 +128,13 @@ main {
     padding-top: 5px;
     display: flex;
     gap:6px;
-    flex-wrap: wrap;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     justify-content: center;
 }
 
-.card-tags span{
-    display: inline-block;
+.card-tag{
     background: #f1f1f1;
     border-radius: 20px;
     padding: 4px 10px;

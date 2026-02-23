@@ -57,6 +57,7 @@ body {
     background: rgb(255, 245, 245);
     border-radius: 12px;
     margin-bottom: 4px;
+    margin-top: 5px;
 }
 
 .form-card-description{
