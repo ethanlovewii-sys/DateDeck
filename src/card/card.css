@@ -9,6 +9,43 @@ body {
     font-family: 'Nunito', Arial, sans-serif;
 }
 
+.form-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-date-card{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 1;
+    left: 0;
+    right: 0;
+    max-width: 325px;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 16px;
+    padding: 1rem;
+    padding-left: 28px;
+    padding-right: 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    margin-top: 5vh;
+    border-style: ridge;
+    border-color: black;
+    transition: all 0.35s ease;
+}
+
+.form-date-card::before{
+    content: "";
+    position: absolute;
+    top: 12px; bottom: 12px; left: 12px; right: 12px;
+    border: 1px solid black; 
+    border-radius: 8px;
+    pointer-events: none;
+}
+
 .card-button{
     background: none;
     border: none;
@@ -36,12 +73,6 @@ body {
     font-size: large;
 }
 
-.form-popup .date-card{
-    position: relative;
-    margin-top: 5vh;
-}
-
-
 .save-btn{
     padding: 4px 10px;
     margin-top: 15px;
@@ -49,6 +80,7 @@ body {
     border: 1px solid black;
     background: white;
     margin-left: 62%;
+    justify-content: flex-end;
 }
 
 .form-title{

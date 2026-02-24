@@ -4,6 +4,7 @@ import '../deck/deck.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // add custom picture option
+// fix weird save btn location
 
 export function Card(){
 
@@ -45,7 +46,7 @@ export function Card(){
             {showForm && (
                 <div className="form-popup">
                 <form>
-                    <div className="date-card active">
+                    <div className="form-date-card active">
                         <h3 className="card-number">{titleIndex}❤︎</h3>
                         <input type='text' placeholder='Date Title:' className="form-title text-center pb-1 pt-1" value={title} onChange={(e) => setTitle(e.target.value)}/>
                         <img src="/card_form_img.jpg" className = "date-img"/>
@@ -77,7 +78,7 @@ export function Card(){
                             </div>
                         <h3 className="bottom-card-number">{titleIndex}❤︎</h3>
                     </div>
-                    <button className='save-btn' onClick={() => {setShowForm(false); localStorage.setItem(`title${titleIndex}`, title); localStorage.setItem(`description${titleIndex}`, description); localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags)); localStorage.setItem("titleIndex", parseInt(titleIndex) + 1)}}>Save</button>
+                    <button className='save-btn' onClick={() => {if(title.trim() !== ""){ setShowForm(false); localStorage.setItem(`title${titleIndex}`, title); localStorage.setItem(`description${titleIndex}`, description); localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags)); localStorage.setItem("titleIndex", parseInt(titleIndex) + 1)}}}>Save</button>
                 </form>
                 </div>
             )}

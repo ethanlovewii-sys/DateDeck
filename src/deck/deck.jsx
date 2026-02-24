@@ -2,6 +2,12 @@ import React from 'react';
 import './deck.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//add authticaiton? so only the cards of that person shows?
+//fix css for arrow buttons on desktop
+//add use card funtionality
+//add edit card functionality
+//add tag overflow viewer 
+
 export function Deck() {
 
     const [cards, setCards] = React.useState([]);
@@ -57,7 +63,7 @@ export function Deck() {
 
 
   return (
-        <main onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} className="d-flex justify-content-center align-items-center text-center">
+        <main onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} className="d-flex flex-column justify-content-center align-items-center text-center">
         <div className="date-deck">
             {cards.map((card, index) => (
                 <div 
@@ -67,21 +73,29 @@ export function Deck() {
                     <h3 className="card-title text-center pb-2 pt-1">{card.title}</h3>
                     <img src="/date_img_placeholder.jpeg" className = "date-img"/>
                     <div className="card-description">
-                        <textarea className="description">{card.description}</textarea>
+                        <textarea className="description" readOnly = {true}>{card.description}</textarea>
                     </div>
                 <div className="card-tags">
                     {card.tags.map(tag => <span className ="card-tag" key={tag}>{tag}</span>)}
                 </div>
                 <h3 className="bottom-card-number">{card.id}❤︎</h3>
             </div>
-            ))}            
-            {isDesktop && 
+            ))}
+            {cards.length === 0 && 
                 <div>
-                    <button className="swipe-btn left" onClick={() => setCurrentIndex(currentIndex - 1)}>‹</button>
-                    <button className="swipe-btn right" onClick={() => setCurrentIndex(currentIndex + 1)}>›</button>
+                    <img src="public/empty_deck.png" className="empty-deck-img"/>
+                    <p className="empty-deck">Your deck is empty!</p>
                 </div>
-            }
-=        </div>
+                }
+            </div>
+       
+            {/* {isDesktop &&  */}
+                <div className = "deck-buttons">
+                    <button className="swipe-btn left" onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}>‹</button>
+                    <button className="custom-btn">Use Card</button>
+                    <button className="swipe-btn right" onClick={() => currentIndex < cards.length - 1 && setCurrentIndex(currentIndex + 1)}>›</button>
+                </div>
+            {/* } */}
     </main>
   );
 }

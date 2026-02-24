@@ -31,7 +31,7 @@ main {
     left: 0;
     right: 0;
     width: 80%;
-    min-height: 52vh;
+    height: 52vh;
     background: #fff;
     margin: 0 auto;
     border-radius: 16px;
@@ -107,13 +107,13 @@ main {
 .date-card.right{
     opacity: 1;
     z-index: 1;
-    transform: scale(0.999) translateX(25px) translateY(12px);
+    transform: scale(0.99) translateX(25px);
 }
 
 .date-card.left{
     opacity: 1;
     z-index: 2;
-    transform: scale(0.999) translateX(-25px) translateY(12px);
+    transform: scale(0.99) translateX(-25px);
 }
 
 .date-card img {
@@ -125,7 +125,6 @@ main {
 
 .card-tags{
     margin-top: auto;
-    padding-top: 5px;
     display: flex;
     gap:6px;
     overflow: hidden;
@@ -142,17 +141,28 @@ main {
     margin-bottom: 3px;
 }
 
-.all-cards-btn{
-    display: flex;
-    margin: 0 auto;
-    justify-content: right;
-    margin-bottom: 10px;
-    max-width: 370px;
-}
-
 .custom-btn{
     padding: 8px 13px;
     border-radius: 8px;
     border: 1px solid black;
     background: white;
+}
+
+.deck-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.empty-deck-img{
+    width: 100%;
+    max-width: 300px;
+    opacity: 0.8;
+    padding-top: 20px;
+}
+.empty-deck{
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 20px;
 }
