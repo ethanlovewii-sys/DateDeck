@@ -100,14 +100,25 @@ export function Card(){
 
                             <button
                                 className='save-btn'
-                                onClick={() => {
-                                if(title.trim() !== ""){
-                                    setShowForm(false);
-                                    localStorage.setItem(`title${titleIndex}`, title);
-                                    localStorage.setItem(`description${titleIndex}`, description);
-                                    localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags));
-                                    localStorage.setItem("titleIndex", parseInt(titleIndex) + 1);
-                                }
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (title.trim() !== "") {
+                                        // Start flip
+                                        setShowForm(false);
+
+                                        // Wait for animation to finish before clearing
+                                        setTimeout(() => {
+                                        localStorage.setItem(`title${titleIndex}`, title);
+                                        localStorage.setItem(`description${titleIndex}`, description);
+                                        localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags));
+                                        localStorage.setItem("titleIndex", parseInt(titleIndex) + 1);
+
+                                        setTitle("");
+                                        setDescription("");
+                                        setSelectedTags([]);
+                                        setTagOpen(false);
+                                        }, 600);
+                                    }
                                 }}>
                                 Save
                             </button>
