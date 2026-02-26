@@ -14,7 +14,7 @@ function Layout({children}) {
     const isLogin = location.pathname == "/";
 
     return(
-        <div>
+        <div className="app-layout">
             {isLogin && (
                 <header className="login-header">
                     <img src = "/datedeck.png" className = "mx-auto d-block mb-5 py-1 title"/>
@@ -28,8 +28,9 @@ function Layout({children}) {
                     </NavLink>
                 </header>
             )}
-
-            {children}
+            <main className="flex-grow-1">
+                {children}
+            </main>
 
             {isLogin && (
                 <footer className="login-footer d-flex justify-content-between align-items-center px-3 border-top">
