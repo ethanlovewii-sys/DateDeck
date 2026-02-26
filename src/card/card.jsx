@@ -19,6 +19,8 @@ export function Card(){
     const [tagOpen, setTagOpen] = React.useState(false);
     const availableTags = ["Indoor", "Outdoor", "Cheap", "Expensive", "Active", "Relaxing", "Romantic", "Adventurous"];
 
+    const cardRef = React.useRef(null); //for the save card animation
+
     function toggleTag(tag) {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     }
@@ -31,6 +33,49 @@ export function Card(){
         setShowForm(true);
         setTitleIndex(localStorage.getItem("titleIndex") || 1);
     }
+
+    function animateToDeck() { //animate card flying to deck
+        const card = cardRef.current;
+        const deckIcon = document.getElementById("deck-icon");
+
+        if (!card || !deckIcon) return;
+
+        const cardRect = card.getBoundingClientRect();
+        const deckRect = deckIcon.getBoundingClientRect();
+
+        const clone = card.cloneNode(true);
+        clone.style.position = "fixed";
+        clone.style.left = `${cardRect.left}px`;
+        clone.style.top = `${cardRect.top}px`;
+        clone.style.width = `${cardRect.width}px`;
+        clone.style.height = `${cardRect.height}px`;
+        clone.style.margin = 0;
+        clone.style.zIndex = 9999;
+        clone.style.transition = "all 0.7s cubic-bezier(.65,.05,.36,1)";
+
+        document.body.appendChild(clone);
+
+        requestAnimationFrame(() => {
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+
+            const deckCenterX = deckRect.left + deckRect.width / 2;
+            const deckCenterY = deckRect.top + deckRect.height / 2;
+
+            const deltaX = deckCenterX - cardCenterX;
+            const deltaY = deckCenterY - cardCenterY;
+
+            clone.style.transform = `
+                translate(${deltaX}px, ${deltaY}px)
+                scale(0.1)
+            `;
+            clone.style.opacity = "0.4";
+        });
+
+        setTimeout(() => {
+            clone.remove();
+        }, 700);
+        }
 
     return (
         <main className="d-flex justify-content-center align-items-center text-center">
@@ -50,7 +95,7 @@ export function Card(){
                     {/* BACK */}
                     <div className="flip-back">
                         <form className ="form-popup">
-                            <div className="form-date-card active">
+                            <div ref={cardRef} className="form-date-card active">
                                 <h3 className="card-number">{titleIndex}❤︎</h3>
 
                                 <input
@@ -103,21 +148,17 @@ export function Card(){
                                 onClick={(e) => {
                                     e.preventDefault();
                                     if (title.trim() !== "") {
-                                        // Start flip
+                                        setTagOpen(false);
                                         setShowForm(false);
+                                        animateToDeck();
 
-                                        // Wait for animation to finish before clearing
-                                        setTimeout(() => {
                                         localStorage.setItem(`title${titleIndex}`, title);
                                         localStorage.setItem(`description${titleIndex}`, description);
-                                        localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags));
+                                        localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags.length === 0 ? ["No Tags"] : selectedTags));
                                         localStorage.setItem("titleIndex", parseInt(titleIndex) + 1);
-
                                         setTitle("");
                                         setDescription("");
                                         setSelectedTags([]);
-                                        setTagOpen(false);
-                                        }, 600);
                                     }
                                 }}>
                                 Save

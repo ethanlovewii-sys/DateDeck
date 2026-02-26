@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export function Deck() {
 
     const [cards, setCards] = React.useState([]);
-    const [currentIndex, setCurrentIndex] = React.useState(1);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
     const [startx, setStartX] = React.useState(0);
     const [offset, setOffset] = React.useState({x:0, y:0});
 

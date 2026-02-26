@@ -54,7 +54,7 @@ function Layout({children}) {
                             <li>
                                 <NavLink to="/deck">
                                     {({ isActive }) => (
-                                    <img src={isActive ? "/deck_icon_active.png" : "/deck_icon.png"} className="footer-icon"/>
+                                    <img id="deck-icon" src={isActive ? "/deck_icon_active.png" : "/deck_icon.png"} className="footer-icon"/>
                                 )}
                                 </NavLink>
                             </li>
