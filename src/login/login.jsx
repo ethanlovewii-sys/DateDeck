@@ -38,7 +38,7 @@ export function Login() {
 
       <form onSubmit={(e) => e.preventDefault()} className="mx-auto lognin-form">
 
-        <div className="form-floating mb-3">
+        <div className="form-floating mb-3 email-input">
           <input type="email" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <label htmlFor="email">✉ Email</label>
         </div>
@@ -50,7 +50,7 @@ export function Login() {
 
         <div className="form-check mb-3 text-start ps-0"> 
             <input className="form-check-imput" type="checkbox" value="" id="remember"/> 
-            <label className="form-check-label" htmlFor="remember">Remember me</label>
+            <label className="form-check-label remember-text" htmlFor="remember">Remember me</label>
         </div> 
         
         <button type="submit" onClick = {() =>loginUser()} className="btn btn-primary w-100 custom-btn">Sign up / Log in</button>

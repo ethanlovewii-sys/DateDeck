@@ -28,7 +28,7 @@ function Layout({children}) {
                     </NavLink>
                 </header>
             )}
-            <main className="flex-grow-1">
+            <main>
                 {children}
             </main>
 
