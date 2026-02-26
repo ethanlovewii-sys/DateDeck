@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 
-body {
+main {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100%;
     margin: 0; 
     background: #fafafa !important;
-    font-family: 'Nunito', Arial, sans-serif;
+    font-family: sans-serif;
 }
 
 .form-popup {
@@ -19,7 +19,7 @@ body {
 .form-date-card{
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: relative;
     top: 1;
     left: 0;
     right: 0;
@@ -31,7 +31,6 @@ body {
     padding-left: 28px;
     padding-right: 28px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    margin-top: 5vh;
     border-style: ridge;
     border-color: black;
     transition: all 0.35s ease;
@@ -65,8 +64,7 @@ body {
 }
 
 .card-img{
-    height: 50vh;
-    margin-top: 5vh;
+    max-width: 325px;
 }
 
 .card-prompt{
