@@ -23,7 +23,13 @@ body{
 }
 
 .normal-header{
-    height: 100px;
+    height: 12vh;
+    display: flex;
+    justify-content: center;
+}
+
+.header-img{
+    height: 100%;
 }
 
 .normal-footer {
@@ -41,14 +47,14 @@ body{
 .footer-nav {
     display: flex;   
     flex-direction: row;
-    justify-content: space-around; /* justify-content-around */
-    align-items: center;           /* align-items-center */
-    margin: 0;                     /* m-0 */
-    padding: 10px;                 /* p-2 (Bootstrap p-2 = 0.5rem ≈ 8px) */
-    list-style: none;              /* list-unstyled */
+    justify-content: space-around;
+    align-items: center;           
+    margin: 0;                  
+    padding: 10px;                
+    list-style: none;          
     max-width: 500px;
     width: 100%;
-    margin-inline: auto;           /* center the nav inside footer */
+    margin-inline: auto;          
 }
 
 .footer-icon{

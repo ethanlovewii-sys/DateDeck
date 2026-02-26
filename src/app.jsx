@@ -22,9 +22,9 @@ function Layout({children}) {
             )}
 
             {!isLogin && (
-                <header>
+                <header className="normal-header">
                     <NavLink to="/">
-                    <img src = "/titledatedeck.png" className = "mx-auto d-block normal-header"/>
+                    <img src = "/titledatedeck.png" className = "mx-auto header-img"/>
                     </NavLink>
                 </header>
             )}

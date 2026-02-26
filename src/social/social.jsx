@@ -2,6 +2,10 @@ import React from 'react';
 import './social.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//add create post
+//simulate friends post
+//simulate interaction with posts (likes/comments)
+
 export function Social() {
   return (
         <main>

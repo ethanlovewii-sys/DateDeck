@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //add edit card functionality
 //add tag overflow viewer 
 //add option to reset all cards (for breakups)
+//add animation to suck it to the social page
 
 export function Deck() {
 
