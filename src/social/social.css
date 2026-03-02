@@ -33,17 +33,15 @@ header{
     padding-inline: 10px;
 }
 
-.plus{
-    background: none;
-    border: none;
-    font-size: 2rem;
-}
-
 .social-feed{
+    display: flex;
     max-width: 500px;
     margin: 0 auto;
     padding: 20px 10px;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    flex-direction: column;
+    align-items: center;
+    min-height: 80vh;
 }
 
 
@@ -51,7 +49,7 @@ header{
     background: #fafafa;          
     border: 1px solid #ddd;
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     overflow: hidden;               
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     margin: 0 auto;
@@ -170,4 +168,28 @@ header{
 .user-avatar{
     width: 40px;
     height: 40px;
+}
+
+.start-caught-up {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.empty-feed-img{
+    width: 100%;
+    max-width: 300px;
+    opacity: 0.8;
+}
+
+.caught-up-message{
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.heart{
+    height: 18px;
+    margin-right: 5px;
 }

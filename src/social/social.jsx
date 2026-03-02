@@ -11,40 +11,43 @@ export function Social() {
 
     const [allPosts, setAllPosts] = React.useState(fakePosts);
     const [feedPosts, setFeedPosts] = React.useState([]);
+    const [noMorePosts, setNoMorePosts] = React.useState(false);
+    const startPageNoMorePosts = feedPosts.length === 0;
 
     const shuffle = (array) => {
         return [...array].sort(() => Math.random() - 0.5);
         };
 
-React.useEffect(() => {
-    const saved = localStorage.getItem("dateFeedPosts");
+    React.useEffect(() => {
+        const saved = localStorage.getItem("dateFeedPosts");
 
-    let startingPosts;
+        let startingPosts;
 
-    if (saved) {
-        startingPosts = JSON.parse(saved);
-    } else {
-        startingPosts = shuffle(fakePosts).map(post => ({
-            ...post,
-            seen: false,
-        }));
-    }
+        if (saved) {
+            startingPosts = JSON.parse(saved);
+        } else {
+            startingPosts = shuffle(fakePosts).map(post => ({
+                ...post,
+                seen: false,
+                liked: false,
+            }));
+        }
 
-    // determine first batch from starting data
-    const unseenPosts = startingPosts.filter(post => !post.seen);
-    const firstBatch = unseenPosts.slice(0, 5);
+        // determine first batch from starting data
+        const unseenPosts = startingPosts.filter(post => !post.seen);
+        const firstBatch = unseenPosts.slice(0, 5);
 
-    // mark first batch as seen
-    const updatedPosts = startingPosts.map(post =>
-        firstBatch.some(batchPost => batchPost.id === post.id)
-            ? { ...post, seen: true }
-            : post
-    );
+        // mark first batch as seen
+        const updatedPosts = startingPosts.map(post =>
+            firstBatch.some(batchPost => batchPost.id === post.id)
+                ? { ...post, seen: true }
+                : post
+        );
 
-    setAllPosts(updatedPosts);
-    setFeedPosts(firstBatch);
+        setAllPosts(updatedPosts);
+        setFeedPosts(firstBatch);
 
-}, []);
+    }, []);
 
     React.useEffect(() => {
         if (allPosts.length > 0) {
@@ -66,9 +69,13 @@ React.useEffect(() => {
 
     function loadMorePosts() {
         const unseenPosts = allPosts.filter(post => !post.seen);
-        if (unseenPosts.length === 0) return;
+        if (unseenPosts.length === 0){
+            setNoMorePosts(true);
+            return;
+        }
+        
 
-        const nextBatch = unseenPosts.slice(0, 2);
+        const nextBatch = unseenPosts.slice(0, 1);
 
         const updateAllPosts = allPosts.map(post => {
             if (nextBatch.some(batchPost => batchPost.id === post.id)) {
@@ -81,7 +88,29 @@ React.useEffect(() => {
         setFeedPosts(prev => [...prev, ...nextBatch]);
     }
 
+    function handleLike(postId) {
+        const updatedPosts = allPosts.map(post => {
+            if (post.id === postId) {
+                return { ...post, liked: !post.liked };
+            }
+            return post;
+        });
+        setAllPosts(updatedPosts);
 
+        const updatedFeed = feedPosts.map(post => {
+        if (post.id === postId) {
+            const isLiking = !post.liked;
+
+            return {
+                ...post,
+                liked: isLiking,
+                likes: isLiking ? post.likes + 1 : post.likes - 1
+            };
+        }
+        return post;
+        });
+        setFeedPosts(updatedFeed);
+    }
 
     return (
             <main>
@@ -111,13 +140,27 @@ React.useEffect(() => {
                             </div>
 
                             <div className="post-actions">
-                                <button className="like-btn">❤️ Like</button>
-                                <button className="comment-btn">💬 Comment</button>
+                                <button className="like-btn" onClick={() => handleLike(post.id)}>
+                                    <img className="heart" src={post.liked ? "public/liked-heart.png" : "public/unliked-heart.png"} alt="Heart Icon"/>
+                                     Likes {post.likes}
+                                </button>
                             </div>
 
                         </div>
                             ))}
-                
+
+                    {noMorePosts && (
+                        <div className="caught-up-message">
+                            🎉 You're all caught up!
+                        </div>
+                    )}
+
+                    {startPageNoMorePosts && (
+                        <div className="start-caught-up">
+                            <img src="public/empty_deck.png" className="empty-feed-img"/>
+                            <p className="empty-deck">No new posts!</p>
+                        </div>
+                    )}
                 </div>
             </main>
   );
