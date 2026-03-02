@@ -13,7 +13,7 @@ export function Deck() {
     const [isDesktop, setIsDesktop] = React.useState(false);
 
     React.useEffect(() => {
-        const check = () => setIsDesktop(window.innerWidth > 768);
+        const check = () => setIsDesktop(window.innerWidth > 500);
         check();
     }, []);
 
@@ -93,7 +93,7 @@ export function Deck() {
                 ))}
                 {cards.length === 0 && 
                     <div>
-                        <img src="public/empty_deck.png" className="empty-deck-img"/>
+                        <img src="/empty_deck.png" className="empty-deck-img"/>
                         <p className="empty-deck">Your deck is empty!</p>
                     </div>
                     }

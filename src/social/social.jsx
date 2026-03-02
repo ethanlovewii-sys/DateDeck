@@ -137,7 +137,7 @@ export function Social() {
 
                             <div className="post-actions">
                                 <button className="like-btn" onClick={() => handleLike(post.id)}>
-                                    <img className="heart" src={post.liked ? "public/liked-heart.png" : "public/unliked-heart.png"} alt="Heart Icon"/>
+                                    <img className="heart" src={post.liked ? "/liked-heart.png" : "/unliked-heart.png"} alt="Heart Icon"/>
                                      Likes {post.likes}
                                 </button>
                             </div>
@@ -153,7 +153,7 @@ export function Social() {
 
                     {startPageNoMorePosts && (
                         <div className="start-caught-up">
-                            <img src="public/empty_deck.png" className="empty-feed-img"/>
+                            <img src="/empty_deck.png" className="empty-feed-img"/>
                             <p className="empty-deck">No new posts!</p>
                         </div>
                     )}
