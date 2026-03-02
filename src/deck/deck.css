@@ -77,9 +77,25 @@
     width: 100%;
 }
 
+.card-title-container{
+    background: rgb(255, 243, 243);
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
 .card-title{
-    font-size: 1.5rem;
+    font-size: 30px;
+    width: 95%;
     border: none;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 5px;
+    margin-left: 25px;
+    margin-right: 25px;
+    text-align: center;
 }
 
 .date-card.active{
@@ -105,6 +121,8 @@
     border-radius: 12px;
     margin-bottom: 0.75rem;
     flex-shrink: 0;
+    max-height: 150px;
+    object-fit: cover;
 }
 
 .card-tags{

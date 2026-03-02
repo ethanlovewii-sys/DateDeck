@@ -2,9 +2,7 @@ import React from 'react';
 import './card.css';
 import '../deck/deck.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// add custom picture option
-// fix weird save btn location
+import { getRandomDateImage } from '../utils/dateImageRepo';
 
 export function Card(){
 
@@ -156,6 +154,7 @@ export function Card(){
                                         localStorage.setItem(`description${titleIndex}`, description);
                                         localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags.length === 0 ? ["No Tags"] : selectedTags));
                                         localStorage.setItem("titleIndex", parseInt(titleIndex) + 1);
+                                        localStorage.setItem(`img${titleIndex}`, getRandomDateImage());
                                         setTitle("");
                                         setDescription("");
                                         setSelectedTags([]);

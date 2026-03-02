@@ -1,11 +1,7 @@
 import React from 'react';
 import './social.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { fakePosts } from './fakePosts'; 
-
-//add create post
-//simulate friends post
-//simulate interaction with posts (likes/comments)
+import { fakePosts } from '../utils/fakePosts'; 
 
 export function Social() {
 
@@ -126,7 +122,7 @@ export function Social() {
                             </div>
 
                             <div className="post-card">
-                                <h3 className="card-title">{post.title}</h3>
+                                <h3 className="card-title-post">{post.title}</h3>
                                 <div className='image-container'>
                                     <img src={post.image} alt="date" className="post-image"/>
                                 </div>

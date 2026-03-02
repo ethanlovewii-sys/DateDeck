@@ -1,12 +1,7 @@
 import React from 'react';
 import './deck.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-//add authticaiton? so only the cards of that person shows?
-//add edit card functionality
-//add tag overflow viewer 
-//add option to reset all cards (for breakups)
-//add animation to suck it to the social page
+import {getRandomDateImage} from '../utils/dateImageRepo.js';
 
 export function Deck() {
 
@@ -65,8 +60,9 @@ export function Deck() {
             const title = localStorage.getItem(`title${i}`);
             const description = localStorage.getItem(`description${i}`);
             const tags = JSON.parse(localStorage.getItem(`tags${i}`) || "[]");
-            if (title && title.length < 8) {
-                cards.push({id:i, title, description, tags });
+            const img = localStorage.getItem(`img${i}`);
+            if (title) {
+                cards.push({id:i, title, description, tags, img});
             }
         }
         return cards;
@@ -82,8 +78,10 @@ export function Deck() {
                     key={card.id} 
                     className={`date-card ${index === currentIndex ? 'active' : index === currentIndex - 1 ? 'left' : index === currentIndex + 1 ? 'right' : ''}`}>
                         <h3 className="card-number">{card.id}❤︎</h3>
-                        <h3 className="card-title text-center pb-2 pt-1">{card.title}</h3>
-                        <img src="/date_img_placeholder.jpeg" className = "date-img"/>
+                        <div className="card-title-container">
+                            <h3 className="card-title">{card.title}</h3>
+                        </div>
+                        <img src={card.img} className = "date-img"/>
                         <div className="card-description">
                             <textarea className="description" readOnly = {true} defaultValue={card.description}/>
                         </div>
