@@ -85,7 +85,7 @@ export function Deck() {
                         <h3 className="card-title text-center pb-2 pt-1">{card.title}</h3>
                         <img src="/date_img_placeholder.jpeg" className = "date-img"/>
                         <div className="card-description">
-                            <textarea className="description" readOnly = {true}>{card.description}</textarea>
+                            <textarea className="description" readOnly = {true} defaultValue={card.description}/>
                         </div>
                     <div className="card-tags">
                         {card.tags.map(tag => <span className ="card-tag" key={tag}>{tag}</span>)}
