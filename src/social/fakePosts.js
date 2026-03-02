@@ -19,7 +19,8 @@ export const fakePosts = [
 
   
 {
-        id: 3,
+        id: 1,
+        dateNum: 3,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "15 minutes ago",
@@ -32,7 +33,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 9,
+        id: 2,
+        dateNum: 9,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "1 hour ago",
@@ -45,7 +47,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 17,
+        id: 3,
+        dateNum: 17,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "3 hours ago",
@@ -58,7 +61,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 22,
+        id: 4,
+        dateNum: 2,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "5 hours ago",
@@ -71,7 +75,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 12,
+        id: 5,
+        dateNum: 12,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "1 day ago",
@@ -84,7 +89,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 30,
+        id: 6,
+        dateNum: 30,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "1 day ago",
@@ -97,7 +103,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 6,
+        id: 7,
+        dateNum: 6,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "2 days ago",
@@ -110,7 +117,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 45,
+        id: 8,
+        dateNum: 45,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "2 days ago",
@@ -123,7 +131,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 19,
+        id: 9,
+        dateNum: 19,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "3 days ago",
@@ -136,7 +145,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 36,
+        id: 10,
+        dateNum: 36,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "1 week ago",
@@ -149,7 +159,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 41,
+        id: 11,
+        dateNum: 41,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "2 hours ago",
@@ -162,7 +173,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 14,
+        id: 12,
+        dateNum: 14,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "4 hours ago",
@@ -175,7 +187,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 28,
+        id: 13,
+        dateNum: 28,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "6 hours ago",
@@ -188,7 +201,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 5,
+        id: 14,
+        dateNum: 5,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "9 hours ago",
@@ -201,7 +215,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 33,
+        id: 15,
+        dateNum: 33,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "1 day ago",
@@ -214,7 +229,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 7,
+        id: 16,
+        dateNum: 40,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "1 day ago",
@@ -227,7 +243,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 46,
+        id: 17,
+        dateNum: 22,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "2 days ago",
@@ -240,7 +257,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 11,
+        id: 18,
+        dateNum: 7,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "2 days ago",
@@ -253,7 +271,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 21,
+        id: 19,
+        dateNum: 27,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "3 days ago",
@@ -266,7 +285,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 48,
+        id: 20,
+        dateNum: 43,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "3 days ago",
@@ -279,7 +299,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 13,
+        id: 21,
+        dateNum: 18,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "4 days ago",
@@ -292,7 +313,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 2,
+        id: 22,
+        dateNum: 29,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "4 days ago",
@@ -305,7 +327,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 26,
+        id: 23,
+        dateNum: 11,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "5 days ago",
@@ -318,7 +341,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 32,
+        id: 24,
+        dateNum: 24,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "5 days ago",
@@ -331,7 +355,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 10,
+        id: 25,
+        dateNum: 31,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "6 days ago",
@@ -344,7 +369,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 49,
+        id: 26,
+        dateNum: 9,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "6 days ago",
@@ -357,7 +383,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 16,
+        id: 27,
+        dateNum: 26,
         user: "Jake & Mia",
         avatar: userAvatars["Jake & Mia"],
         time: "1 week ago",
@@ -370,12 +397,13 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 35,
+        id: 28,
+        dateNum: 37,
         user: "E&S",
         avatar: userAvatars["E&S"],
         time: "1 week ago",
         title: "Dessert Cafe Stop",
-        image: "https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg",
+        image: "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg",
         description: "Shared cheesecake and coffee.",
         tags: ["Indoor", "Cheap", "Romantic"],
         likes: 24,
@@ -383,7 +411,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 20,
+        id: 29,
+        dateNum: 20,
         user: "Liam & Ava",
         avatar: userAvatars["Liam & Ava"],
         time: "1 week ago",
@@ -396,7 +425,8 @@ export const fakePosts = [
         seen: false,
     },
     {
-        id: 38,
+        id: 30,
+        dateNum: 4,
         user: "Noah & Emma",
         avatar: userAvatars["Noah & Emma"],
         time: "2 weeks ago",

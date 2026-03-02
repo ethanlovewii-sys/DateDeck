@@ -9,18 +9,90 @@ import { fakePosts } from './fakePosts';
 
 export function Social() {
 
-    const [posts, setPosts] = React.useState(fakePosts);
+    const [allPosts, setAllPosts] = React.useState(fakePosts);
+    const [feedPosts, setFeedPosts] = React.useState([]);
+
+    const shuffle = (array) => {
+        return [...array].sort(() => Math.random() - 0.5);
+        };
+
+React.useEffect(() => {
+    const saved = localStorage.getItem("dateFeedPosts");
+
+    let startingPosts;
+
+    if (saved) {
+        startingPosts = JSON.parse(saved);
+    } else {
+        startingPosts = shuffle(fakePosts).map(post => ({
+            ...post,
+            seen: false,
+        }));
+    }
+
+    // determine first batch from starting data
+    const unseenPosts = startingPosts.filter(post => !post.seen);
+    const firstBatch = unseenPosts.slice(0, 5);
+
+    // mark first batch as seen
+    const updatedPosts = startingPosts.map(post =>
+        firstBatch.some(batchPost => batchPost.id === post.id)
+            ? { ...post, seen: true }
+            : post
+    );
+
+    setAllPosts(updatedPosts);
+    setFeedPosts(firstBatch);
+
+}, []);
+
+    React.useEffect(() => {
+        if (allPosts.length > 0) {
+            localStorage.setItem("dateFeedPosts", JSON.stringify(allPosts));
+        }
+    }, [allPosts]);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+                loadMorePosts();
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [allPosts]);
+
+
+
+    function loadMorePosts() {
+        const unseenPosts = allPosts.filter(post => !post.seen);
+        if (unseenPosts.length === 0) return;
+
+        const nextBatch = unseenPosts.slice(0, 2);
+
+        const updateAllPosts = allPosts.map(post => {
+            if (nextBatch.some(batchPost => batchPost.id === post.id)) {
+                return { ...post, seen: true };
+            }
+            return post;
+        });
+
+        setAllPosts(updateAllPosts);
+        setFeedPosts(prev => [...prev, ...nextBatch]);
+    }
+
+
 
     return (
             <main>
                 <div className="social-feed">
-                    {posts.map(post => (
+                    {feedPosts.map(post => (
                         <div key={post.id} className="feed-post">
                         
                             <div className="post-header">
                                 <img className="user-avatar" src={post.avatar} alt="User Avatar"/>
                                 <div className="username">{post.user}</div>
-                                <div className="post-number">{post.likes}❤</div>
+                                <div className="post-number">{post.dateNum}❤</div>
                                 <div className="post-time">{post.time}</div>
                             </div>
 
@@ -50,29 +122,3 @@ export function Social() {
             </main>
   );
 }
-
-
-
-
-{/* <div className="feed-post">
-                <div className="post-header">
-                    <img className ="user-avatar" src="/user-avatar-placeholder.jpg" alt="User Avatar"/>
-                    <span className="username">E&S</span>
-                    <span className="post-number">12❤</span>
-                    <span className="post-time">3 days ago</span>
-                </div>
-                <div className="post-card">
-                    <h3 className="card-title">The Arcade!</h3>
-                    <img src="/date_img_placeholder.jpeg"/>
-                    <p className="card-description">Had a wonderful time at the nickle arcade on state street!</p>
-                    <div className="card-tags">
-                        <span>Indoor</span>
-                        <span>Cheap</span>
-                        <span>Exciting</span>
-                    </div>
-                </div>
-                <div className="post-actions">
-                    <button className="like-btn">❤️ Like</button>
-                    <button className="comment-btn">💬 Comment</button>
-                </div>
-            </div> */}
