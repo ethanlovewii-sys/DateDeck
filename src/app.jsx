@@ -8,8 +8,6 @@ import { Deck } from './deck/deck'
 import { Login } from './login/login'
 import { Social } from './social/social'
 
-//add title so that itll display the right tab
-
 
 function Layout({children}) {
     const location = useLocation();

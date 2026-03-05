@@ -150,11 +150,22 @@ export function Card(){
                                         setShowForm(false);
                                         animateToDeck();
 
-                                        localStorage.setItem(`title${titleIndex}`, title);
-                                        localStorage.setItem(`description${titleIndex}`, description);
-                                        localStorage.setItem(`tags${titleIndex}`, JSON.stringify(selectedTags.length === 0 ? ["No Tags"] : selectedTags));
-                                        localStorage.setItem("titleIndex", parseInt(titleIndex) + 1);
-                                        localStorage.setItem(`img${titleIndex}`, getRandomDateImage());
+                                        const existingCards = JSON.parse(localStorage.getItem("dateDeckCards")) || [];
+
+                                        const newCard = {
+                                            id: titleIndex,
+                                            title: title,
+                                            description: description,
+                                            tags: selectedTags.length === 0 ? ["No Tags"] : selectedTags,
+                                            img: getRandomDateImage(),
+                                            used: false
+                                        };
+
+                                        existingCards.push(newCard);
+
+                                        localStorage.setItem("dateDeckCards", JSON.stringify(existingCards));
+                
+                                        localStorage.setItem("titleIndex", parseInt(titleIndex)+1)
                                         setTitle("");
                                         setDescription("");
                                         setSelectedTags([]);

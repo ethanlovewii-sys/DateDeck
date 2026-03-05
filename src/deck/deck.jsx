@@ -54,18 +54,8 @@ export function Deck() {
     }, []);
 
     function getCardsFromStorage() {
-        const titleIndex = localStorage.getItem("titleIndex") || 1;
-        const cards = [];
-        for (let i = 1; i <= titleIndex; i++) {
-            const title = localStorage.getItem(`title${i}`);
-            const description = localStorage.getItem(`description${i}`);
-            const tags = JSON.parse(localStorage.getItem(`tags${i}`) || "[]");
-            const img = localStorage.getItem(`img${i}`);
-            if (title) {
-                cards.push({id:i, title, description, tags, img});
-            }
-        }
-        return cards;
+        const cards = localStorage.getItem("dateDeckCards");
+        return cards ? JSON.parse(cards) : [];
     }
 
 
