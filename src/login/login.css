@@ -1,3 +1,10 @@
+.form-main{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20vh;
+}
+
 .btn.custom-btn {
   background-color: #ae2828; /* Hot pink */
   color: white; /* Text color */

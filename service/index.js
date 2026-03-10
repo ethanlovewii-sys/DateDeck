@@ -7,7 +7,9 @@ const authRoutes = require('./routes/auth');
 // const deckRoutes = require('./routes/deck');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const path = require('path');
 
+app.use(express.static(path.join(__dirname, '../dist')));
 app.use(cookieParser());
 app.use(express.json());
 

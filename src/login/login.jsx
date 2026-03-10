@@ -9,7 +9,7 @@ export function Login() {
   // State variables for email and password, initialized with values from localStorage if available
   const [email, setEmail] = React.useState(localStorage.getItem("email") || "");
   const [password, setPassword] = React.useState("");
-  const hasAnAcount = false
+  const [hasAnAcount, setHasAnAcount] = React.useState(false);
 
   // Function to handle user login
   async function loginUser(endpoint) {
@@ -29,13 +29,13 @@ export function Login() {
     }
     else{
       const body = await response.json();
-      setDisplayError(body.msg)
+      alert(body.msg)
     }
   }
 
   // JSX for the login form
   return (
-    <main className = "text-center">
+    <main className = "form-main">
       {!hasAnAcount && 
         <h1 className="mb-4">Create Your Account</h1>
       }
@@ -46,7 +46,7 @@ export function Login() {
       <form onSubmit={(e) => e.preventDefault()} className="mx-auto lognin-form">
 
         <div className="form-floating mb-3 email-input">
-          <input type="email" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <label htmlFor="email">✉ Email</label>
         </div>
 
@@ -60,7 +60,7 @@ export function Login() {
           <button type="submit" onClick = {() =>loginUser('/api/auth/register')} className="btn btn-primary w-100 custom-btn">Sign up</button>
           <div>
             Already have an accout?
-            <button className='logInButton' onClick>
+            <button className='logInButton' onClick = {() => setHasAnAcount(true)}>
               Log in
             </button>
           </div>
@@ -72,7 +72,7 @@ export function Login() {
           <button type="submit" onClick = {() =>loginUser('/api/auth/login')} className="btn btn-primary w-100 custom-btn">Log in</button>
           <div>
             Don't have an accout?
-            <button className='logInButton' onClick>
+            <button className='logInButton' onClick = {() => setHasAnAcount(false)}>
               Sign up
             </button>
           </div>
