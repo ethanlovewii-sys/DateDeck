@@ -1,16 +1,17 @@
-const cookieParser = require('cookie-parser');
-const bcrypt = require('bcryptjs');
-const express = require('express');
-const uuid = require('uuid');
 const app = express();
+const express = require('express');
 
-const authCookieName = 'token';
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts');
+const deckRoutes = require('./routes/deck');
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
-app.use(express.json());
-appluse(cookieParser());
-app.use(express.static('public'));
-
 var apiRouter = express.Router();
-app.use('/api', apiRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes)
+app.use('/api/deck',deckRoutes )
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
