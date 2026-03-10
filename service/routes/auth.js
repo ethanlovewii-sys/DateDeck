@@ -35,6 +35,19 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.delete('/logout', async (req, res) => {
+    console.log("logout reached");
+    const user = await findUser('token', req.cookies[authCookieName]);
+    if (user) {
+            delete user.token;
+            res.clearCookie(authCookieName);
+            res.status(200).send({msg: 'logged out successsfully'});
+    }else{
+        res.status(401).send({msg: 'Unable to logout'})
+    }
+
+});
+
 async function findUser(field, value) {
     if (!value) return null;
     return users.find((u) => u[field] === value);

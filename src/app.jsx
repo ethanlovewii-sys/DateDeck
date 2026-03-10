@@ -1,13 +1,20 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from './card/card'
 import { Deck } from './deck/deck'
 import { Login } from './login/login'
 import { Social } from './social/social'
 
+
+async function logout() {
+    const response = await fetch(`/api/auth/logout`, {method: 'delete', credentials: 'include'});
+    if (response.status === 200){
+        window.location.href ='/';
+    }
+    };
 
 function Layout({children}) {
     const location = useLocation();
@@ -23,9 +30,9 @@ function Layout({children}) {
 
             {!isLogin && (
                 <header className="normal-header">
-                    <NavLink to="/">
-                    <img src = "/titledatedeck.png" className = "mx-auto header-img"/>
-                    </NavLink>
+                    <button onClick={logout} className='logout-btn'>
+                        <img src="/titledatedeck.png" alt="DateDeck logo"  className = "mx-auto header-img"/>
+                    </button>
                 </header>
             )}
             <main>

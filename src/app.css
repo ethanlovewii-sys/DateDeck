@@ -8,6 +8,11 @@ body{
     width: 220px;
 }
 
+.logout-btn{
+    background: none;
+    border: none;
+}
+
 .app-layout{
     display: flex;
     flex-direction: column;
