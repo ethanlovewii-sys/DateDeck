@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './card.css';
 import '../deck/deck.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,7 @@ import { getRandomDateImage } from '../utils/dateImageRepo';
 export function Card(){
 
     const [showForm, setShowForm] = React.useState(false);
+    const [showTip, setShowTip] = React.useState(!localStorage.getItem("seenTip"));
 
     const [title, setTitle] = React.useState("");
     const [titleIndex, setTitleIndex] = React.useState(localStorage.getItem("titleIndex") || 1);
@@ -18,6 +19,13 @@ export function Card(){
     const availableTags = ["Indoor", "Outdoor", "Cheap", "Expensive", "Active", "Relaxing", "Romantic", "Adventurous"];
 
     const cardRef = React.useRef(null); //for the save card animation
+
+    useEffect(() => {
+    if (showTip) {
+        localStorage.setItem("seenTip", "true");
+        setTimeout(() => setShowTip(false), 3800);
+    }
+    }, []);
 
     function toggleTag(tag) {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
@@ -77,6 +85,11 @@ export function Card(){
 
     return (
         <main className="d-flex justify-content-center align-items-center text-center">
+            {showTip && (
+                <div className="logout-tip">
+                    👆 Click the DateDeck logo to log out
+                </div>
+            )}
             <div className={`flip-container ${showForm ? "flipped" : ""}`}>
                 <div className="flip-card">
 
