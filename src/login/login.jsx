@@ -9,32 +9,39 @@ export function Login() {
   // State variables for email and password, initialized with values from localStorage if available
   const [email, setEmail] = React.useState(localStorage.getItem("email") || "");
   const [password, setPassword] = React.useState("");
+  const hasAnAcount = false
 
   // Function to handle user login
-  async function loginUser() {
-    if (localStorage.getItem("email") === email) {
-      if (localStorage.getItem("password") === password) {
-        navigate('/card');
-        return;
-      }
-      else{
-        alert("Incorrect password. Please try again.");
-        return;
-      }
-    }
+  async function loginUser(endpoint) {
     if (email === "" | password === "") {
       alert("Please fill in all fields.");
       return;
     }
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-    navigate('/card');
+    const response = await fetch(endpoint, {
+      method: 'post',
+      body: JSON.stringify({ email: email, password: password}),
+      headers:{
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200){
+      navigate('/card');
+    }
+    else{
+      const body = await response.json();
+      setDisplayError(body.msg)
+    }
   }
 
   // JSX for the login form
   return (
     <main className = "text-center">
-      <h1 className="mb-4">Create Your Account</h1>
+      {!hasAnAcount && 
+        <h1 className="mb-4">Create Your Account</h1>
+      }
+      {hasAnAcount &&
+        <h1 className='mb-4'>Log in</h1>
+      }
 
       <form onSubmit={(e) => e.preventDefault()} className="mx-auto lognin-form">
 
@@ -47,13 +54,32 @@ export function Login() {
           <input type="password" placeholder="🗝️ Password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <label htmlFor="password">🗝️ Password</label>
         </div>
-
-        <div className="form-check mb-3 text-start ps-0"> 
-            <input className="form-check-imput" type="checkbox" value="" id="remember"/> 
-            <label className="form-check-label remember-text" htmlFor="remember">Remember me</label>
-        </div> 
         
-        <button type="submit" onClick = {() =>loginUser()} className="btn btn-primary w-100 custom-btn">Sign up / Log in</button>
+        {!hasAnAcount &&
+        <div>
+          <button type="submit" onClick = {() =>loginUser('/api/auth/register')} className="btn btn-primary w-100 custom-btn">Sign up</button>
+          <div>
+            Already have an accout?
+            <button className='logInButton' onClick>
+              Log in
+            </button>
+          </div>
+        </div>
+        }
+
+        {hasAnAcount &&
+        <div>
+          <button type="submit" onClick = {() =>loginUser('/api/auth/login')} className="btn btn-primary w-100 custom-btn">Log in</button>
+          <div>
+            Don't have an accout?
+            <button className='logInButton' onClick>
+              Sign up
+            </button>
+          </div>
+        </div>
+        }
+        
+
       </form>
     </main>
   );

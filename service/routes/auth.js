@@ -9,23 +9,28 @@ const authCookieName = 'token';
 
 router.post('/register', async (req, res) => {
     if (await findUser('email', req.body.email)) {
-        res.status(409).send({msg: 'Existing user'});
+        res.status(409).send({msg: 'That user already exists'});
     }
     else{
         const user = await createUser(req.body.email, req.body.password);
-
         setAuthCookie(res, user.token);
+        res.status(200).send({msg: "User created"});
     }
 });
 
 router.post('/login', async (req, res) => {
-    if (!await findUser('email', req.body.email)) {
-        res.status(409).send({msg: 'User isn\'t registered'});
+    const user = await findUser('email', req.body.email)
+    if (!user) {
+        res.status(409).send({msg: 'User not found'});
     }
     else{
         if (await bcrypt.compare(req.body.password, user.password)) {
         user.token = uuid.v4();
         setAuthCookie(res, user.token);
+        res.status(200).send({msg: "Login successful"});
+        }
+        else {
+            res.status(409).send({msg: 'Incorrect password'})
         }
     }
 });
@@ -66,3 +71,5 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
+
+module.exports = router;
