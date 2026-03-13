@@ -13,6 +13,14 @@ export function Deck() {
     const [isDesktop, setIsDesktop] = React.useState(false);
 
     React.useEffect(() => {
+        fetch('/api/deck/loadCards')
+        .then((response) => response.json())
+        .then((cards) => {
+            setCards(cards);
+        });
+    }, []);
+
+    React.useEffect(() => {
         const check = () => setIsDesktop(window.innerWidth > 500);
         check();
     }, []);
@@ -48,17 +56,6 @@ export function Deck() {
         currentIndex > 0 ? setCurrentIndex(currentIndex - 1) : setCurrentIndex(0);
         setCards(getCardsFromStorage());
     }
-
-    React.useEffect(() => {
-        setCards(getCardsFromStorage());
-    }, []);
-
-    function getCardsFromStorage() {
-        const cards = localStorage.getItem("dateDeckCards");
-        return cards ? JSON.parse(cards) : [];
-    }
-
-
 
   return (
         <main onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} className="d-flex flex-column justify-content-center align-items-center text-center">

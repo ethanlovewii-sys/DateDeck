@@ -10,7 +10,7 @@ export function Card(){
     const [showTip, setShowTip] = React.useState(!localStorage.getItem("seenTip"));
 
     const [title, setTitle] = React.useState("");
-    const [titleIndex, setTitleIndex] = React.useState(localStorage.getItem("titleIndex") || 1);
+    const [titleIndex, setTitleIndex] = React.useState(1);
     const [description, setDescription] = React.useState("");
 
     const [selectedTags, setSelectedTags] = React.useState([]);
@@ -31,13 +31,41 @@ export function Card(){
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     }
 
-    function addCard(){
-        setTitle("");
-        setDescription("");
-        setSelectedTags([]);
-        setTagOpen(false);
-        setShowForm(true);
-        setTitleIndex(localStorage.getItem("titleIndex") || 1);
+async function addCard(){
+    setTitle("");
+    setDescription("");
+    setSelectedTags([]);
+    setTagOpen(false);
+    setShowForm(true);
+
+    const response = await fetch('/api/deck/loadTitleIndex');
+    const titleIndex = await response.json();
+
+    setTitleIndex(titleIndex);
+}
+
+    function handleSaveCard(e){
+        e.preventDefault();
+        if (title.trim() !== "") {
+            setTagOpen(false);
+            setShowForm(false);
+            animateToDeck();
+
+            const newCard = {
+                id: titleIndex,
+                title: title,
+                description: description,
+                tags: selectedTags.length === 0 ? ["No Tags"] : selectedTags,
+                img: getRandomDateImage(),
+                used: false
+            };
+
+            fetch('/api/deck/addCard', { method: 'POST' });
+            
+            setTitle("");
+            setDescription("");
+            setSelectedTags([]);
+        }
     }
 
     function animateToDeck() { //animate card flying to deck
@@ -154,36 +182,7 @@ export function Card(){
                                 <h3 className="bottom-card-number">{titleIndex}❤︎</h3>
                             </div>
 
-                            <button
-                                className='save-btn'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    if (title.trim() !== "") {
-                                        setTagOpen(false);
-                                        setShowForm(false);
-                                        animateToDeck();
-
-                                        const existingCards = JSON.parse(localStorage.getItem("dateDeckCards")) || [];
-
-                                        const newCard = {
-                                            id: titleIndex,
-                                            title: title,
-                                            description: description,
-                                            tags: selectedTags.length === 0 ? ["No Tags"] : selectedTags,
-                                            img: getRandomDateImage(),
-                                            used: false
-                                        };
-
-                                        existingCards.push(newCard);
-
-                                        localStorage.setItem("dateDeckCards", JSON.stringify(existingCards));
-                
-                                        localStorage.setItem("titleIndex", parseInt(titleIndex)+1)
-                                        setTitle("");
-                                        setDescription("");
-                                        setSelectedTags([]);
-                                    }
-                                }}>
+                            <button className='save-btn' onClick={handleSaveCard}>
                                 Save
                             </button>
                         </form>

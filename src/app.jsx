@@ -8,7 +8,6 @@ import { Deck } from './deck/deck'
 import { Login } from './login/login'
 import { Social } from './social/social'
 
-
 async function logout() {
     const response = await fetch(`/api/auth/logout`, {method: 'delete', credentials: 'include'});
     if (response.status === 200){
