@@ -20,7 +20,6 @@ app.listen(port, () => {
 });
 
 //NEED TO ADD:
-//restircted end points
 //third party API call
 //shift deck from local storage to back end
 

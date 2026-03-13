@@ -45,16 +45,20 @@ export function Deck() {
         setOffset(0);
     }
 
-    const handleUseCard = () => {
-        const card = cards[currentIndex];
-        localStorage.setItem(`title${card.id}-used`, cards[currentIndex].title);
-        localStorage.setItem(`description${card.id}-used`, cards[currentIndex].description);
-        localStorage.setItem(`tags${card.id}-used`, JSON.stringify(cards[currentIndex].tags));
-        localStorage.removeItem(`title${card.id}`);
-        localStorage.removeItem(`description${card.id}`);
-        localStorage.removeItem(`tags${card.id}`);
-        currentIndex > 0 ? setCurrentIndex(currentIndex - 1) : setCurrentIndex(0);
-        setCards(getCardsFromStorage());
+    async function handleUseCard(id) {
+        await fetch('/api/deck/useCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        });
+
+        setCards(prev => prev.filter(card => card.id !== id));
+
+        if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+        }
     }
 
   return (
@@ -90,7 +94,7 @@ export function Deck() {
                     {isDesktop &&
                     <button className="swipe-btn left" onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}>‹</button>
                     }
-                    <button className="custom-btn" onClick={() => handleUseCard()}>Use Card</button>
+                    <button type='button' className="custom-btn" onClick={() => handleUseCard(cards[currentIndex].id)}>Use Card</button>
                     {isDesktop &&
                     <button className="swipe-btn right" onClick={() => currentIndex < cards.length - 1 && setCurrentIndex(currentIndex + 1)}>›</button>
                     }

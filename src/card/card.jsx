@@ -12,7 +12,6 @@ export function Card(){
     const [title, setTitle] = React.useState("");
     const [titleIndex, setTitleIndex] = React.useState(1);
     const [description, setDescription] = React.useState("");
-
     const [selectedTags, setSelectedTags] = React.useState([]);
 
     const [tagOpen, setTagOpen] = React.useState(false);
@@ -21,30 +20,30 @@ export function Card(){
     const cardRef = React.useRef(null); //for the save card animation
 
     useEffect(() => {
-    if (showTip) {
-        localStorage.setItem("seenTip", "true");
-        setTimeout(() => setShowTip(false), 3800);
-    }
-    }, []);
+        if (showTip) {
+            localStorage.setItem("seenTip", "true");
+            setTimeout(() => setShowTip(false), 3800);
+        }
+        }, []);
 
     function toggleTag(tag) {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     }
 
-async function addCard(){
-    setTitle("");
-    setDescription("");
-    setSelectedTags([]);
-    setTagOpen(false);
-    setShowForm(true);
+    async function addCard(){
+        setTitle("");
+        setDescription("");
+        setSelectedTags([]);
+        setTagOpen(false);
+        setShowForm(true);
 
-    const response = await fetch('/api/deck/loadTitleIndex');
-    const titleIndex = await response.json();
+        const response = await fetch('/api/deck/loadTitleIndex');
+        const titleIndex = await response.json();
 
-    setTitleIndex(titleIndex);
-}
+        setTitleIndex(titleIndex);
+    }
 
-    function handleSaveCard(e){
+    async function handleSaveCard(e){
         e.preventDefault();
         if (title.trim() !== "") {
             setTagOpen(false);
@@ -60,7 +59,13 @@ async function addCard(){
                 used: false
             };
 
-            fetch('/api/deck/addCard', { method: 'POST' });
+            await fetch('/api/deck/addCard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCard)
+            });
             
             setTitle("");
             setDescription("");
