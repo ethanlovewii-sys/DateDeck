@@ -3,6 +3,17 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=DateDeck`;
 const client = new MongoClient(url);
+
+async function connectTODb() {
+  try{
+    await client.connect();
+    console.log("connected to Mongo DB")
+  } catch (err) {
+    console.error("Mongo connection failed", err);
+    throw err;
+  }
+}
+
 const db = client.db('datedeck');
 const userCollection = db.collection('user');
 const deckCollection = db.collection('deck');
