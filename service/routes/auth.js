@@ -4,7 +4,6 @@ const uuid = require('uuid');
 const express = require('express');
 const router = express.Router();
 
-const users = [];
 const authCookieName = 'token';
 
 router.post('/register', async (req, res) => {
@@ -36,10 +35,9 @@ router.post('/login', async (req, res) => {
 });
 
 router.delete('/logout', async (req, res) => {
-    console.log("logout reached");
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
-            delete user.token;
+            await DB.updateUserRemoveAuth(user);
             res.clearCookie(authCookieName);
             res.status(200).send({msg: 'logged out successsfully'});
     }else{
@@ -50,7 +48,10 @@ router.delete('/logout', async (req, res) => {
 
 async function findUser(field, value) {
     if (!value) return null;
-    return users.find((u) => u[field] === value);
+    if (field === 'token') {
+        return DB.getUserByToken(value);
+    }
+    return DB.getUser(value);
 }
 
 async function createUser(email, password){
@@ -61,7 +62,7 @@ async function createUser(email, password){
         password: passwordHash,
         token: uuid.v4(),
     };
-    users.push(user);
+    await DB.addUser(user);
 
     return user;
 }

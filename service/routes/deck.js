@@ -5,8 +5,8 @@ const {verifyAuth} = require('./auth');
 const cards = [];
 let titleIndex = 1;
 
-router.get('/loadCards', verifyAuth, (_req, res) => {
-    const unusedCards = cards.filter(card => !card.used);
+router.get('/loadCards', verifyAuth, async (_req, res) => {
+    const unusedCards = await DB.getCards();
     res.json(unusedCards);
 });
 
