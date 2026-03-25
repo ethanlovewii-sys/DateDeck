@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {verifyAuth} = require('./auth');
-const DB = require('../database.js');
+const {verifyAuth} = require('./auth.js');
+const DB = require('./database.js');
 
 async function grabUser(req) {
     const token = req.cookies?.token;

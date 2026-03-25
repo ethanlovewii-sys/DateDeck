@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const express = require('express');
 const router = express.Router();
-const DB = require('../database.js');
+const DB = require('./database.js');
 
 const authCookieName = 'token';
 
