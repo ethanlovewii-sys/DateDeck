@@ -35,6 +35,10 @@ body{
 
 .header-img{
     height: 100%;
+    width: auto;
+    max-width: 90%;
+    object-fit: contain;
+    padding-top: 15px;
 }
 
 .normal-footer {

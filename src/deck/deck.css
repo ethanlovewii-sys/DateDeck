@@ -84,6 +84,7 @@
     border-radius: 8px;
     display: flex;
     justify-content: center;
+    margin-top: 26px; 
 }
 
 .card-title{
@@ -93,6 +94,7 @@
     overflow: hidden;
     white-space: nowrap;
     margin-bottom: 5px;
+    margin-top: 5px;
     margin-left: 25px;
     margin-right: 25px;
     text-align: center;
@@ -126,7 +128,7 @@
 }
 
 .card-tags{
-    margin-top: auto;
+    margin-top: 5px;
     display: flex;
     gap:6px;
     overflow: hidden;

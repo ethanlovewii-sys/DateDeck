@@ -13,6 +13,7 @@ export function Card(){
     const [titleIndex, setTitleIndex] = React.useState(1);
     const [description, setDescription] = React.useState("");
     const [selectedTags, setSelectedTags] = React.useState([]);
+    const [image, setImage] = React.useState("/card_form_img.jpg");
 
     const [tagOpen, setTagOpen] = React.useState(false);
     const availableTags = ["Indoor", "Outdoor", "Cheap", "Expensive", "Active", "Relaxing", "Romantic", "Adventurous"];
@@ -32,6 +33,7 @@ export function Card(){
 
     async function addCard(){
         setTitle("");
+        setImage("/card_form_img.jpg");
         setDescription("");
         setSelectedTags([]);
         setTagOpen(false);
@@ -39,7 +41,6 @@ export function Card(){
 
         const response = await fetch('/api/deck/loadTitleIndex');
         const titleIndex = await response.json();
-
         setTitleIndex(titleIndex);
     }
 
@@ -50,14 +51,19 @@ export function Card(){
             setShowForm(false);
             animateToDeck();
 
+            const response = await fetch(`/api/deck/image/${title}`);
+            const data = await response.json();
+
             const newCard = {
                 id: titleIndex,
                 title: title,
                 description: description,
                 tags: selectedTags.length === 0 ? ["No Tags"] : selectedTags,
-                img: getRandomDateImage(),
+                img: data.image,
                 used: false
             };
+
+            setImage(data.image);
 
             await fetch('/api/deck/addCard', {
                 method: 'POST',
@@ -66,10 +72,6 @@ export function Card(){
                 },
                 body: JSON.stringify(newCard)
             });
-            
-            setTitle("");
-            setDescription("");
-            setSelectedTags([]);
         }
     }
 
@@ -150,7 +152,7 @@ export function Card(){
                                 onChange={(e) => setTitle(e.target.value)}
                                 />
 
-                                <img src="/card_form_img.jpg" className="date-img"/>
+                                <img src={image || "/card_form_img.jpg"} className="date-img"/>
 
                                 <textarea
                                 className='form-card-description'

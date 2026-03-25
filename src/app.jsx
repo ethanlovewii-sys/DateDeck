@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from './card/card'
 import { Deck } from './deck/deck'
 import { Login } from './login/login'
-import { Social } from './social/social'
 
 async function logout() {
     const response = await fetch(`/api/auth/logout`, {method: 'delete', credentials: 'include'});
@@ -64,15 +63,6 @@ function Layout({children}) {
                                 )}
                                 </NavLink>
                             </li>
-
-                            <li>
-                                <NavLink to="/social">
-                                    {({ isActive }) => (
-                                    <img src={isActive ? "/social_icon_active.png" : "/social_icon.png"} className="footer-icon"/>
-                                )}
-                                </NavLink>
-                            </li>
-
                         </ul>
                     </nav>
                 </footer>
@@ -89,7 +79,6 @@ export default function App() {
                     <Route path="/" element={<Login />}/>
                     <Route path="/card" element={<Card />}/>
                     <Route path="/deck" element={<Deck />}/>
-                    <Route path="/social" element={<Social />}/>
                 </Routes>
             </Layout>
     </BrowserRouter>

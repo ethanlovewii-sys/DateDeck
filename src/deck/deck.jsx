@@ -46,6 +46,7 @@ export function Deck() {
     }
 
     async function handleUseCard(id) {
+        if (cards.length === 0) return;
         await fetch('/api/deck/useCard', {
             method: 'POST',
             headers: {
@@ -72,7 +73,7 @@ export function Deck() {
                         <div className="card-title-container">
                             <h3 className="card-title">{card.title}</h3>
                         </div>
-                        <img src={card.img} className = "date-img"/>
+                        <img src={card.img || 'card_form_img.jpg'} className = "date-img"/>
                         <div className="card-description">
                             <textarea className="description" readOnly = {true} defaultValue={card.description}/>
                         </div>
@@ -94,7 +95,7 @@ export function Deck() {
                     {isDesktop &&
                     <button className="swipe-btn left" onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}>‹</button>
                     }
-                    <button type='button' className="custom-btn" onClick={() => handleUseCard(cards[currentIndex].id)}>Use Card</button>
+                    <button type='button' className="custom-btn" onClick={() => handleUseCard(cards[currentIndex]?.id)}>Use Card</button>
                     {isDesktop &&
                     <button className="swipe-btn right" onClick={() => currentIndex < cards.length - 1 && setCurrentIndex(currentIndex + 1)}>›</button>
                     }
