@@ -5,19 +5,32 @@ const {verifyAuth} = require('./auth');
 const cards = [];
 let titleIndex = 1;
 
+async function grabUser(req) {
+    const token = req.cookies.token;
+    const user = await getUserByToken(token);
+    return user
+}
+
 router.get('/loadCards', verifyAuth, async (_req, res) => {
-    const unusedCards = await DB.getCards();
+    const user = await grabUser(req);
+
+    const unusedCards = await DB.getCards(user);
     res.json(unusedCards);
 });
 
-router.get('/loadTitleIndex', (req, res) => {
-    res.send(titleIndex);
+router.get('/loadTitleIndex', async (req, res) => {
+    const user = await grabUser(req);
+
+    res.send(user.index);
 });
 
-router.post('/addCard', verifyAuth, (req, res) => {
-    cards.push(req.body);
+router.post('/addCard', verifyAuth, async (req, res) => {
+    const user = await grabUser(req);
+    const card = req.body
+
+    const titleIndex = await addCard(user, card);
     titleIndex++;
-    res.json({ titleIndex });
+    res.json({ titleIndex }); //send index to load from front end
 });
 
 router.get('/image/:title', async (req, res) => {

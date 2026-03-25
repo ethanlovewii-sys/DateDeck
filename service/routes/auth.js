@@ -61,6 +61,7 @@ async function createUser(email, password){
         email: email,
         password: passwordHash,
         token: uuid.v4(),
+        index: 1,
     };
     await DB.addUser(user);
 

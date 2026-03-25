@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=DateDeck`;
+const url = `mongodb+srv://${config.email}:${config.password}@${config.hostname}/?appName=DateDeck`;
 const client = new MongoClient(url);
 const db = client.db('datedeck');
 const userCollection = db.collection('user');
@@ -25,6 +25,14 @@ async function updateUserRemoveAuth(user) {
 }
 
 //Deck
-async function getCards() {
-    
+async function getCards(user) {
+    deckCollection.find({ email: user.email, used: flase })
+}
+
+async function addCard(user, card) {
+    const newCard = {
+        ...card,
+        email: user.email
+    }
+    deckCollection.insertOne(newCard)
 }
