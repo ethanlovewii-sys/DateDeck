@@ -105,12 +105,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I installed Express and used the default port on 4000.
+- [x] **Static middleware for frontend** - I used the cookie, JSON, and verify_auth middleware in my routes/auth.js file.
+- [x] **Calls to third-party endpoints** - I called to unslpash to get a picture based on the card's title in the route/deck.js file.
+- [x] **Backend service endpoints** - I used backend endpoints for authorization, to store cards, and call them down into the deck page.
+- [x] **Frontend calls service endpoints** - The front end calls the endpoints to store the cards it organizes, set them to used, and to load them into the deck.
+- [x] **Supports registration, login, logout, and restricted endpoint** - DateDeck supports registration, login, logout, and has the following restricted endpoints: addCard, loadCards, and useCard in the route/deck.js file.
 
 ## 🚀 DB deliverable
 
