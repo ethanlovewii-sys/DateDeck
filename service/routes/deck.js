@@ -45,11 +45,12 @@ router.get('/image/:title', async (req, res) => {
 
 });
 
-router.post('/useCard', verifyAuth, async (req, res) => {
+router.post('/useCard', async (req, res) => {
+    console.log("reached backend")
     const user = await grabUser(req)
-    const cardId = req.body;
-    await DB.useCard(user, cardId)
-    res.status(200);
+    const {id} = req.body;
+    await DB.useCard(user, id)
+    res.sendStatus(200);
 });
 
 module.exports = router;

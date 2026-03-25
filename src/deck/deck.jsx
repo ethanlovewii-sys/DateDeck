@@ -48,16 +48,17 @@ export function Deck() {
     }
 
     async function handleUseCard(id) {
-        await fetch('/api/deck/useCard', {
+        const response = await fetch('/api/deck/useCard', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
         });
+        if (response.ok){
+            await loadCards();
 
-        await loadCards();
-
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
+            if (currentIndex > 0) {
+                setCurrentIndex(currentIndex - 1);
+            }
         }
     }
 
