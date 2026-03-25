@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const express = require('express');
 const router = express.Router();
+const DB = require('../database.js');
 
 const authCookieName = 'token';
 
@@ -24,8 +25,9 @@ router.post('/login', async (req, res) => {
     }
     else{
         if (await bcrypt.compare(req.body.password, user.password)) {
-        user.token = uuid.v4();
-        setAuthCookie(res, user.token);
+        newToken = uuid.v4();
+        await DB.updateToken(user, newToken); 
+        setAuthCookie(res, newToken);
         res.status(200).send({msg: "Login successful"});
         }
         else {

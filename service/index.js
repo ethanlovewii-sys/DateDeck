@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const app = express();
-const DB = require('./database.js');
 
 const { router: authRoutes } = require('./routes/auth');
 const deckRoutes = require('./routes/deck');

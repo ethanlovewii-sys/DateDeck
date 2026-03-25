@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const {verifyAuth} = require('./auth');
-
-const cards = [];
-let titleIndex = 1;
+const DB = require('../database.js');
 
 async function grabUser(req) {
-    const token = req.cookies.token;
-    const user = await getUserByToken(token);
-    return user
+    const token = req.cookies?.token;
+    const user = await DB.getUserByToken(token);
+    return user;
 }
 
-router.get('/loadCards', verifyAuth, async (_req, res) => {
+router.get('/loadCards', verifyAuth, async (req, res) => {
     const user = await grabUser(req);
 
     const unusedCards = await DB.getCards(user);
@@ -26,11 +24,10 @@ router.get('/loadTitleIndex', async (req, res) => {
 
 router.post('/addCard', verifyAuth, async (req, res) => {
     const user = await grabUser(req);
-    const card = req.body
+    const card = req.body;
 
-    const titleIndex = await addCard(user, card);
-    titleIndex++;
-    res.json({ titleIndex }); //send index to load from front end
+    await DB.addCard(user, card);
+    res.sendStatus(200);
 });
 
 router.get('/image/:title', async (req, res) => {
@@ -48,14 +45,11 @@ router.get('/image/:title', async (req, res) => {
 
 });
 
-router.post('/useCard', verifyAuth, (req, res) => {
-    const {id} = req.body;
-    const card = cards.find(c => c.id === id);
-    if (!card) {
-        return res.status(404).json({ msg: "Card not found" });
-    }
-    card.used = true;
-    res.json(card);
+router.post('/useCard', verifyAuth, async (req, res) => {
+    const user = await grabUser(req)
+    const cardId = req.body;
+    await DB.useCard(user, cardId)
+    res.status(200);
 });
 
 module.exports = router;

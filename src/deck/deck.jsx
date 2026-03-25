@@ -13,17 +13,19 @@ export function Deck() {
     const [isDesktop, setIsDesktop] = React.useState(false);
 
     React.useEffect(() => {
-        fetch('/api/deck/loadCards')
-        .then((response) => response.json())
-        .then((cards) => {
-            setCards(cards);
-        });
+        loadCards()
     }, []);
 
     React.useEffect(() => {
         const check = () => setIsDesktop(window.innerWidth > 500);
         check();
     }, []);
+
+    async function loadCards() {
+        const response = await fetch('/api/deck/loadCards');
+        const cards = await response.json();
+        setCards(cards);
+    }
 
     const handleTouchStart = (e) => {
         setStartX(e.touches[0].clientX);
@@ -46,19 +48,16 @@ export function Deck() {
     }
 
     async function handleUseCard(id) {
-        if (cards.length === 0) return;
         await fetch('/api/deck/useCard', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
         });
 
-        setCards(prev => prev.filter(card => card.id !== id));
+        await loadCards();
 
         if (currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
+            setCurrentIndex(currentIndex - 1);
         }
     }
 

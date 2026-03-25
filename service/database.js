@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.email}:${config.password}@${config.hostname}/?appName=DateDeck`;
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/?appName=DateDeck`;
 const client = new MongoClient(url);
 const db = client.db('datedeck');
 const userCollection = db.collection('user');
@@ -16,9 +16,14 @@ function getUserByToken(token) {
   return userCollection.findOne({ token: token });
 }
 
+async function updateToken(user, newToken){
+  await userCollection.updateOne({ email: user.email }, { $set:{token: newToken }});
+}
+
 async function addUser(user) {
   await userCollection.insertOne(user);
 }
+
 
 async function updateUserRemoveAuth(user) {
   await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
@@ -26,13 +31,29 @@ async function updateUserRemoveAuth(user) {
 
 //Deck
 async function getCards(user) {
-    deckCollection.find({ email: user.email, used: flase })
+    return deckCollection.find({ email: user.email, used: false }).toArray();
 }
 
 async function addCard(user, card) {
     const newCard = {
         ...card,
         email: user.email
-    }
-    deckCollection.insertOne(newCard)
+    };
+    await deckCollection.insertOne(newCard);
+    await userCollection.updateOne({ email: user.email }, {$inc: {index: 1}});
 }
+
+async function useCard(user, cardId) {
+    await deckCollection.updateOne({ email: user.email, id: cardId }, { $set: {used: true}});
+}
+
+module.exports = {
+  getUser,
+  getUserByToken,
+  updateToken,
+  addUser,
+  updateUserRemoveAuth,
+  getCards,
+  addCard,
+  useCard
+};
