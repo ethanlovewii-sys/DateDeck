@@ -19,8 +19,8 @@ const userCollection = db.collection('user');
 const deckCollection = db.collection('deck');
 
 //Authentication
-function getUser(email) {
-  return userCollection.findOne({ email: email });
+function getUser(username) {
+  return userCollection.findOne({ username: username });
 }
 
 function getUserByToken(token) {
@@ -37,25 +37,25 @@ async function addUser(user) {
 
 
 async function updateUserRemoveAuth(user) {
-  await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
+  await userCollection.updateOne({ username: user.username }, { $unset: { token: 1 } });
 }
 
 //Deck
 async function getCards(user) {
-    return deckCollection.find({ email: user.email, used: false }).toArray();
+    return deckCollection.find({ username: user.username, used: false }).toArray();
 }
 
 async function addCard(user, card) {
     const newCard = {
         ...card,
-        email: user.email
+        username: user.username
     };
     await deckCollection.insertOne(newCard);
-    await userCollection.updateOne({ email: user.email }, {$inc: {index: 1}});
+    await userCollection.updateOne({ username: user.username }, {$inc: {index: 1}});
 }
 
 async function useCard(user, cardId) {
-    await deckCollection.updateOne({ email: user.email, id: cardId }, { $set: {used: true}});
+    await deckCollection.updateOne({ username: user.username, id: cardId }, { $set: {used: true}});
 }
 
 module.exports = {

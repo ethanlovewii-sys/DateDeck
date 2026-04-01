@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './card.css';
 import '../deck/deck.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getRandomDateImage } from '../utils/dateImageRepo';
 
 export function Card(){
 

@@ -8,18 +8,18 @@ const DB = require('./database.js');
 const authCookieName = 'token';
 
 router.post('/register', async (req, res) => {
-    if (await findUser('email', req.body.email)) {
-        res.status(409).send({msg: 'That user already exists'});
+    if (await findUser('username', req.body.username)) {
+        res.status(409).send({msg: 'That username is already taken'});
     }
     else{
-        const user = await createUser(req.body.email, req.body.password);
+        const user = await createUser(req.body.username, req.body.email, req.body.password);
         setAuthCookie(res, user.token);
         res.status(200).send({msg: "User created"});
     }
 });
 
 router.post('/login', async (req, res) => {
-    const user = await findUser('email', req.body.email)
+    const user = await findUser('username', req.body.username)
     if (!user) {
         res.status(409).send({msg: 'User not found'});
     }
@@ -56,10 +56,11 @@ async function findUser(field, value) {
     return DB.getUser(value);
 }
 
-async function createUser(email, password){
+async function createUser(username, email, password){
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = {
+        username: username,
         email: email,
         password: passwordHash,
         token: uuid.v4(),

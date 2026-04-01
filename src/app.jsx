@@ -5,7 +5,10 @@ import { BrowserRouter, NavLink, Route, Routes, useLocation, useNavigate } from 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from './card/card'
 import { Deck } from './deck/deck'
+import { Chat } from './chat/chat'
 import { Login } from './login/login'
+
+//Add a chat page where you can look up frineds by their name or username and send them messages or cards you've made.
 
 async function logout() {
     const response = await fetch(`/api/auth/logout`, {method: 'delete', credentials: 'include'});
@@ -63,6 +66,13 @@ function Layout({children}) {
                                 )}
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/chat">
+                                    {({ isActive }) => (
+                                    <img src={isActive ? "/chat_icon_active.png" : "/chat_icon.png"} className="footer-icon"/>
+                                )}
+                                </NavLink>
+                            </li>
                         </ul>
                     </nav>
                 </footer>
@@ -79,6 +89,7 @@ export default function App() {
                     <Route path="/" element={<Login />}/>
                     <Route path="/card" element={<Card />}/>
                     <Route path="/deck" element={<Deck />}/>
+                    <Route path="/chat" element={<Chat />}/>
                 </Routes>
             </Layout>
     </BrowserRouter>

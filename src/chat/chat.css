@@ -1,0 +1,14 @@
+.chat-list{
+    min-width: 400px;
+    background-color: tan;
+}
+
+.chat-window{
+    background-color: pink;
+    width: 100%;
+}
+
+.desktop{
+    display: flex;
+    flex-direction: row;
+}

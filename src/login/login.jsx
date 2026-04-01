@@ -7,19 +7,24 @@ export function Login() {
   const navigate = useNavigate();
 
   // State variables for email and password, initialized with values from localStorage if available
-  const [email, setEmail] = React.useState(localStorage.getItem("email") || "");
+  const [email, setEmail] = React.useState("");
+  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [hasAnAcount, setHasAnAcount] = React.useState(false);
 
   // Function to handle user login
   async function loginUser(endpoint) {
-    if (email === "" | password === "") {
+    if (username === "" || password === "") {
+      alert("Please fill in all fields.");
+      return;
+    }
+    if (!hasAnAcount && email === "") {
       alert("Please fill in all fields.");
       return;
     }
     const response = await fetch(endpoint, {
       method: 'post',
-      body: JSON.stringify({ email: email, password: password}),
+      body: JSON.stringify({ username: username, email: email, password: password}),
       headers:{
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -45,10 +50,17 @@ export function Login() {
 
       <form onSubmit={(e) => e.preventDefault()} className="mx-auto lognin-form">
 
-        <div className="form-floating mb-3 email-input">
-          <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label htmlFor="email">✉ Email</label>
+        <div className="form-floating mb-3">
+          <input type="text" placeholder="Username" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+          <label htmlFor="username"></label>
         </div>
+
+        {!hasAnAcount &&
+          <div className="form-floating mb-3 email-input">
+            <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <label htmlFor="email"></label>
+          </div>
+        }
 
         <div className = "form-floating mb-3">
           <input type="password" placeholder="🗝️ Password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -57,6 +69,10 @@ export function Login() {
         
         {!hasAnAcount &&
         <div>
+        <div className="form-floating mb-3 email-input">
+          <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <label htmlFor="email"></label>
+        </div>
           <button type="submit" onClick = {() =>loginUser('/api/auth/register')} className="btn btn-primary w-100 custom-btn">Sign up</button>
           <div>
             Already have an accout?
