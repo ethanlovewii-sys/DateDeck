@@ -10,7 +10,7 @@ export function Login() {
   const [email, setEmail] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [hasAnAcount, setHasAnAcount] = React.useState(false);
+  const [hasAnAcount, setHasAnAcount] = React.useState(true);
 
   // Function to handle user login
   async function loginUser(endpoint) {
@@ -50,29 +50,25 @@ export function Login() {
 
       <form onSubmit={(e) => e.preventDefault()} className="mx-auto lognin-form">
 
-        <div className="form-floating mb-3">
+        <div className="form-floating mb-3 input">
           <input type="text" placeholder="Username" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor="username"></label>
+          <label htmlFor="username">Username</label>
         </div>
 
         {!hasAnAcount &&
-          <div className="form-floating mb-3 email-input">
+          <div className="form-floating mb-3 input">
             <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <label htmlFor="email"></label>
+            <label htmlFor="email">✉ Email</label>
           </div>
         }
 
-        <div className = "form-floating mb-3">
+        <div className = "form-floating mb-3" input>
           <input type="password" placeholder="🗝️ Password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <label htmlFor="password">🗝️ Password</label>
         </div>
         
         {!hasAnAcount &&
         <div>
-        <div className="form-floating mb-3 email-input">
-          <input type="text" placeholder="✉ Email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label htmlFor="email"></label>
-        </div>
           <button type="submit" onClick = {() =>loginUser('/api/auth/register')} className="btn btn-primary w-100 custom-btn">Sign up</button>
           <div>
             Already have an accout?

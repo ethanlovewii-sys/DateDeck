@@ -9,3 +9,9 @@ async function grabUser(req) {
     return user;
 }
 
+router.get('/getUsername', verifyAuth, async (req, res) => {
+    const user = await grabUser(req);
+    res.json({username: user.username});
+});
+
+module.exports = router;

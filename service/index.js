@@ -17,6 +17,7 @@ const { connectToDb } = require('./database');
 
 const { router: authRoutes } = require('./auth');
 const deckRoutes = require('./deck');
+const chatRoutes = require('./chat');
 
 const port = process.env.PORT || 4000;
 
@@ -26,6 +27,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/deck', deckRoutes);
+app.use('/api/chat', chatRoutes);
 
 async function startServer() {
   console.log("Starting server...");
