@@ -6,7 +6,7 @@ export function Chat(){
     const [isDesktop, setIsDesktop] = React.useState(false);
     const [username, setUsername] = React.useState("");
     const [chats, setChats] = React.useState([
-        {id: 1, name: "Alee", lastMessage: "I like this one", timestamp: "8:05pm", color: "#ffd8d8"},
+        {id: 1, name: "Jamie", lastMessage: "Yeah lets do this one", timestamp: "8:05pm", color: "#ffd8d8"},
         {id: 2, name: "John", lastMessage: "Sounds fun!", timestamp: "7:45pm", color: "#d8e7ff"},
         {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
     ]);
@@ -32,7 +32,7 @@ export function Chat(){
         <main className={`chat-layout ${isDesktop ? 'desktop' : 'mobile'}`}>
 
             {/* Left side: Chat selector and search */}
-            
+
             <div className="chat-list">
 
                 <div className='list-header'>
@@ -69,7 +69,26 @@ export function Chat(){
             {/* Right side: Selected chat window */}
 
             <div className={`chat-window ${isDesktop ? 'chat-window-desktop' : 'chat-window-mobile'}`}>
-                Window
+
+                <div className='chat-window-header'>
+                    <div className='chat-window-avatar-name'>
+                        <div className='chat-window-avatar' style={{ backgroundColor: "#ffd8d8" }}>
+                            J
+                        </div>
+                        <div className='chat-window-name'>
+                            Jamie
+                        </div>
+                    </div>
+                    <div className='chat-window-info'>
+                        𝒊
+                    </div>
+                </div>
+                <div className='chat-window-body'>
+
+                </div>
+                <div className='chat-window-input'>
+
+                </div>
             </div>
         </main>
     );

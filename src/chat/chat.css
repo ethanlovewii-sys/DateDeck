@@ -13,6 +13,7 @@ h1 {
     padding: 20px;
     height: 88vh;
     padding-bottom: 72px;
+    border-right: 1px solid rgb(167, 167, 167);
 
     display: flex;
     flex-direction: column;
@@ -34,6 +35,12 @@ h1 {
 
 .new-message-icon{
     font-size: 30px;
+    transition: transform 0.2s ease;
+}
+
+.new-message-icon:hover{
+    cursor: pointer;
+    transform: scale(1.09);
 }
 
 .search-bar{
@@ -96,7 +103,52 @@ h1 {
 }
 
 .chat-window{
-    background-color: pink;
+    background-color: #fafafa;
     width: 100%;
 }
 
+.chat-window-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    border-bottom: 1px solid rgb(167, 167, 167);
+}
+
+.chat-window-avatar-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.chat-window-avatar{
+    min-width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    font-size: 33px;
+    text-align: center;
+    color: #313131;
+}
+.chat-window-name{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.chat-window-info{
+    font-size: 30px;
+    width: 36px; height: 36px;
+    color: #313131;
+    border: 1px solid rgb(93, 93, 93);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-window-info:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
