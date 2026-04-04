@@ -11,6 +11,57 @@ export function Chat(){
         {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
     ]);
 
+const messages = [
+  {
+    sender: "friend",
+    text: "Hey, do you want to try out that new restaurant this weekend?"
+  },
+  {
+    sender: "self",
+    text: "Yeah, that sounds great! What day were you thinking?"
+  },
+  {
+    sender: "friend",
+    text: "maybe Saturday? I heard they have amazing brunch!"
+  },
+  {
+    sender: "self",
+    text: "Saturday works for me! What time should we meet?"
+  },
+  {
+    sender: "friend",
+    text: "I was thinking around 10 AM?"
+  },
+  {
+    sender: "self",
+    text: "10 AM is perfect! I'm really looking forward to it!"
+  },
+  {
+    sender: "friend",
+    text: "Hey, do you want to try out that new restaurant this weekend?"
+  },
+  {
+    sender: "self",
+    text: "Yeah, that sounds great! What day were you thinking?"
+  },
+  {
+    sender: "friend",
+    text: "maybe Saturday? I heard they have amazing brunch!"
+  },
+  {
+    sender: "self",
+    text: "Saturday works for me! What time should we meet?"
+  },
+  {
+    sender: "friend",
+    text: "I was thinking around 10 AM?"
+  },
+  {
+    sender: "self",
+    text: "10 AM is perfect! I'm really looking forward to it!"
+  }
+];
+
     // Check for mobile vs desktop
     React.useEffect(() => {
         const check = () => setIsDesktop(window.innerWidth > 500);
@@ -28,6 +79,18 @@ export function Chat(){
     }, []);
 
 
+    //scroll to bottom of chat when new messages are added
+    const chatBodyRef = React.useRef(null);
+    React.useEffect(() => {
+        const element = chatBodyRef.current;
+        if (element) {
+            setTimeout(() => {
+            element.scrollTop = element.scrollHeight;
+            }, 10); 
+        }
+    }, [messages]);
+
+
     return (
         <main className={`chat-layout ${isDesktop ? 'desktop' : 'mobile'}`}>
 
@@ -41,7 +104,7 @@ export function Chat(){
                 </div>
 
                 <div className='search-container'>
-                    <input type="text" placeholder="🔍︎ Search" className="search-bar"/>
+                    <input sender="text" placeholder="🔍︎ Search" className="search-bar"/>
                 </div>
 
                 <div className='list-body'>
@@ -83,11 +146,21 @@ export function Chat(){
                         𝒊
                     </div>
                 </div>
-                <div className='chat-window-body'>
-
+{/* Make chat start at bottom then add the input layer */}
+                <div className='chat-window-body' ref={chatBodyRef}>
+                    <div className='all-chat-messages'>
+                        {/* Map chat messages */}
+                        {messages.map((message, i) => (
+                            <div key={i} className={`chat-message ${
+                                message.sender === "self" ? "self-chat-message" : "friend-chat-message"
+                                }`}>
+                                {message.text}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className='chat-window-input'>
-
+                    <input sender="text" placeholder="Type a message..." className="message-input"/>
                 </div>
             </div>
         </main>

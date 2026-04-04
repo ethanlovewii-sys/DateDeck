@@ -2,6 +2,12 @@ h1 {
     margin: 0;
 }
 
+.chat-layout{
+    display: flex;
+    height: 100%; /* critical */
+    overflow: hidden; /* prevents body scroll */
+}
+
 .desktop{
     display: flex;
     flex-direction: row;
@@ -11,7 +17,7 @@ h1 {
     min-width: 400px;
     background-color: #fafafa;
     padding: 20px;
-    height: 88vh;
+    height: 100%;
     padding-bottom: 72px;
     border-right: 1px solid rgb(167, 167, 167);
 
@@ -103,6 +109,9 @@ h1 {
 }
 
 .chat-window{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     background-color: #fafafa;
     width: 100%;
 }
@@ -151,4 +160,53 @@ h1 {
 .chat-window-info:hover{
     background-color: #f1f1f1;
     cursor: pointer;
+}
+
+.chat-window-body{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.all-chat-messages{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    font-size: 19px;
+}
+
+.message-date-separator{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 17px;
+    color: #313131;
+}
+
+.chat-message{
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 60%;
+}
+
+.self-chat-message{
+    align-self: flex-end;
+    background-color: rgb(255, 220, 220);
+}
+
+.friend-chat-message{
+    align-self: flex-start;
+    background-color: rgb(255, 255, 255);
+}
+
+.chat-window-input{
+    flex-shrink: 0;
+    background-color: #fafafa;
+    padding: 20px;
+    border-top: 1px solid rgb(167, 167, 167);
 }

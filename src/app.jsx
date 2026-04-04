@@ -36,7 +36,7 @@ function Layout({children}) {
                     </button>
                 </header>
             )}
-            <main>
+            <main className='app-content'>
                 {children}
             </main>
 

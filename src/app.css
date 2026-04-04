@@ -1,4 +1,10 @@
-body{
+html,body,#root{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main{
     background: #fafafa !important;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -16,8 +22,15 @@ body{
 .app-layout{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     margin: 0;
+}
+
+.app-content{
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
 }
 
 .login-footer{
@@ -28,9 +41,10 @@ body{
 }
 
 .normal-header{
-    height: 12vh;
+    height: 80px;
     display: flex;
     justify-content: center;
+    background: #fafafa;
 }
 
 .header-img{
