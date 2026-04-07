@@ -2,10 +2,6 @@ import React from 'react';
 import './chat.css';
 import { CloseButton } from 'react-bootstrap';
 
-//curretnly working on having that chat open if you search for it
-
-//left off with openchatwithuser function, need to create a new chat in the DB and then load that chat's messages and info into the right side of the chat window. Also need to add a way to load existing chats when clicking on them in the left side list.
-
 // load messages from db
 // add searching and accepting requests
 
@@ -240,9 +236,9 @@ export function Chat(){
 
             {/* Right side: Selected chat window */}
 
-            <div className={`chat-window ${isDesktop ? 'chat-window-desktop' : 'chat-window-mobile'}`}>
+            <div className='chat-window-container'>
                 {selectedChat && (
-                <div>
+                <div className='chat-window'>
                     <div className='chat-window-header'>
                         <div className='chat-window-avatar-name'>
                             <div className='chat-window-avatar' style={{ backgroundColor: chatData?.color || 'none' }}>

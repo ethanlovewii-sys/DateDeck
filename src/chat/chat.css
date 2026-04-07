@@ -138,12 +138,20 @@ h1 {
     font-weight: bold;
 }
 
+.chat-window-container{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .chat-window{
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
     background-color: #fafafa;
     width: 100%;
+    height: 600px;
 }
 
 .chat-window-header{
@@ -238,7 +246,6 @@ h1 {
     flex-shrink: 0;
     background-color: #fafafa;
     padding: 15px; 
-    margin-bottom: 70px;
 }
 
 .message-input-container{
