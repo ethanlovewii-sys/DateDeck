@@ -48,4 +48,17 @@ router.get('/getChat', verifyAuth, async (req, res) => {
     res.json({ chat });
 });
 
+router.post('/saveMessage', verifyAuth, async (req, res) => {
+    const message = req.body;
+    await DB.saveMessage(message);
+    res.sendStatus(200);
+});
+
+router.get('/getMessages', verifyAuth, async (req, res) => {
+    const chatId = req.query.chatId;
+    const messages = await DB.getMessagesByChatId(chatId);
+    const sortedMessages = messages.sort((a, b) => new Date(a.time) - new Date(b.time));
+    res.json({ sortedMessages });
+});
+
 module.exports = router;

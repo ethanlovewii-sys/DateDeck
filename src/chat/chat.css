@@ -228,6 +228,7 @@ h1 {
 
 .chat-message{
     padding: 10px;
+    padding-left: 15px; padding-right: 15px;
     border-radius: 8px;
     max-width: 60%;
 }
@@ -288,4 +289,19 @@ h1 {
     margin-left: 10px; margin-right: 10px;
     border-radius: 999px;
     background-color: rgb(255, 176, 176);
+}
+
+.send-button:hover{
+    cursor: pointer;
+    background-color: rgb(255, 220, 220);
+}
+
+.no-chat-selected{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    color: #313131;
 }

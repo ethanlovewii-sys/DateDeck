@@ -18,6 +18,7 @@ const db = client.db('datedeck');
 const userCollection = db.collection('user');
 const deckCollection = db.collection('deck');
 const chatCollection = db.collection('chat');
+const messageCollection = db.collection('message');
 
 //random avatar colors for chats
 function getRandomPastelColor() {
@@ -109,6 +110,15 @@ async function loadChats(user) {
     return chatCollection.find({ users: user.username }).toArray();
 }
 
+async function saveMessage(message) {
+    await messageCollection.insertOne(message);
+    await chatCollection.updateOne({ chatId: message.chatId }, { $set: { lastMessage: message.text, privateTimestamp: message.time } });
+}
+
+async function getMessagesByChatId(chatId) {
+    return messageCollection.find({ chatId: chatId }).toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -123,4 +133,5 @@ module.exports = {
   userSearching,
   getChatById,
   loadChats,
+  getMessagesByChatId,
 };

@@ -26,6 +26,8 @@ export function Chat(){
     const [usersFound, setUsersFound] = React.useState([]);
     const [searchingForChat, setSearchingForChat] = React.useState(false);
 
+    const [messageContents, setMessageContents] = React.useState("");
+
     // Initialize WebSocket connection and set up event listeners
     React.useEffect(() => {
         const socket = new WebSocket("ws://localhost:3001");
@@ -89,9 +91,20 @@ export function Chat(){
         loadChats();
     }, []);
 
+    //load messages for the selected chat
+    const loadMessages = async (chatId) => {
+        const response = await fetch(`/api/chat/getMessages?chatId=${chatId}`, {credentials: 'include'});
+        const data = await response.json();
+        setMessages(data.sortedMessages);
+    }
+
+    React.useEffect(() => {
+        if (!selectedChat) return;
+        loadMessages(selectedChat);
+    }, [selectedChat]);
+
     //auto resize the textarea input
     const textareaRef = React.useRef(null);
-    const [messageContents, setMessageContents] = React.useState("");
     const autoResize = () => {
         const textarea = textareaRef.current;
         if (!textarea) return;
@@ -109,14 +122,23 @@ export function Chat(){
     //Send message through websocket
     const sendMessage = () => {
         if (!messageContents.trim()) return;
-
         const message = {
-            sender: "self",
+            chatId: selectedChat,
+            sender: username,
+            recipient: otherUser,
             text: messageContents,
-            timestamp: new Date()
+            time: new Date().toISOString(),
         };
 
-        socketRef.current.send(JSON.stringify(message));
+        // socketRef.current.send(JSON.stringify(message));
+        fetch('/api/chat/saveMessage', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        });
 
         setMessageContents("");
     };
@@ -152,7 +174,6 @@ export function Chat(){
         const data = await response.json();
         loadChats();
         setChatData(data.chat);
-        console.log("chat ID:", data.chat.chatId);
         setSelectedChat(data.chat.chatId);
     };
 
@@ -257,7 +278,7 @@ export function Chat(){
                             {/* Map chat messages */}
                             {messages.map((message, i) => (
                                 <div key={i} className={`chat-message ${
-                                    message.sender === "self" ? "self-chat-message" : "friend-chat-message"
+                                    message.sender === username ? "self-chat-message" : "friend-chat-message"
                                     }`}>
                                     {message.text}
                                 </div>
