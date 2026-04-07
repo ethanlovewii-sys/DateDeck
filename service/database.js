@@ -17,7 +17,16 @@ async function connectToDb() {
 const db = client.db('datedeck');
 const userCollection = db.collection('user');
 const deckCollection = db.collection('deck');
-const messageCollection = db.collection('messages');
+const chatCollection = db.collection('chat');
+
+//random avatar colors for chats
+function getRandomPastelColor() {
+    const hue = Math.floor(Math.random() * 360);       // 0–360
+    const saturation = Math.floor(Math.random() * 20) + 60; // 60–80%
+    const lightness = Math.floor(Math.random() * 15) + 75;  // 75–90%
+
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
 
 //Authentication
 function getUser(username) {
@@ -65,8 +74,40 @@ async function saveMessage(message) {
 }
 
 //searching for user to chat with
-async function userSearching(username) {
-  return userCollection.find({ username: { $regex: username, $options: 'i' } }).limit(5).toArray();
+async function userSearching(username, currentUsername) {
+    return userCollection
+        .find({
+            $and: [
+                { username: { $regex: username, $options: 'i' } },
+                { username: { $ne: currentUsername } }
+            ]
+        })
+        .limit(5)
+        .toArray();
+}
+
+//grabbing a chat by its ID and make it if it doesn't exist
+async function getChatById(chatId) {
+    const chat = await chatCollection.findOne({ chatId: chatId });
+    if (!chat) {
+        const newChat = {
+            chatId: chatId,
+            users: [chatId.split('-')[0], chatId.split('-')[1]],
+            accepted: false,
+            lastMessage: "",
+            color: getRandomPastelColor(),
+            privateTimestamp: new Date().toISOString(),
+            userTimestamp:"",
+        };
+        await chatCollection.insertOne(newChat);
+        return newChat;
+    }
+    return chat;
+}
+
+async function loadChats(user) {
+  console.log("database loadChats reached, user:", user.username);
+    return chatCollection.find({ users: user.username }).toArray();
 }
 
 module.exports = {
@@ -79,5 +120,8 @@ module.exports = {
   addCard,
   useCard,
   connectToDb,
-  saveMessage
+  saveMessage,
+  userSearching,
+  getChatById,
+  loadChats,
 };

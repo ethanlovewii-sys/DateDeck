@@ -15,6 +15,7 @@ h1 {
 
 .chat-list{
     min-width: 500px;
+    width: 500px;
     background-color: #fafafa;
     padding: 20px;
     height: 100%;
@@ -56,6 +57,35 @@ h1 {
     margin-top: 6px;
     padding: 4px; padding-left: 15px;
     width: 100%;
+}
+
+.search-result-list{
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 8px;
+    margin-top: 8px;
+    width: 460px;
+    z-index: 1000;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-result{
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(167, 167, 167);
+    background: none;
+}
+
+.search-result:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.search-result:last-child{
+    border-bottom: none;
 }
 
 .list-body{

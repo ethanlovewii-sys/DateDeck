@@ -17,9 +17,29 @@ router.get('/getUsername', verifyAuth, async (req, res) => {
 //searching for user to chat with
 router.get('/searchUsers', verifyAuth, async (req, res) => {
     const searchQuery = req.query.q;
+    const user = await grabUser(req);
     if (!searchQuery) { return res.json({ users: [] }); }
-    const users = await DB.userSearching(searchQuery);
-    res.json(users);
+    const users = await DB.userSearching(searchQuery, user.username);
+    res.json({ users });
+});
+
+router.post('/openChat', verifyAuth, async (req, res) => {
+    const user = await grabUser(req);
+    const friendUsername = req.body.friendUsername;
+    const chatId = [user.username, friendUsername].sort().join('-'); //prevents duplicate orders
+    const chat = await DB.getChatById(chatId);
+    res.json({ chat });
+});
+
+router.get('/loadChats', verifyAuth, async (req, res) => {
+    const user = await grabUser(req);
+    if (!user) {
+        return res.status(401).json({ msg: 'Unauthorized, no user found' });
+    }
+    console.log("user:", user.username);
+    const chats = await DB.loadChats(user);
+    const sortedChats = chats.sort((a, b) => new Date(b.privateTimestamp) - new Date(a.privateTimestamp)); // Sort chats by most recent message
+    res.json({ sortedChats });
 });
 
 

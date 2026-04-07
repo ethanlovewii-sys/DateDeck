@@ -1,11 +1,14 @@
 import React from 'react';
 import './chat.css';
+import { CloseButton } from 'react-bootstrap';
 
-//Look at websocket and DB stuff to see what happens next
-// Need to store messages
-// dynamic time dividers
+//left off with openchatwithuser function, need to create a new chat in the DB and then load that chat's messages and info into the right side of the chat window. Also need to add a way to load existing chats when clicking on them in the left side list.
+
 // load messages from db
 // add searching and accepting requests
+
+//to do later
+//add user timestaps that update when the cards are loaded
 
 export function Chat(){
 
@@ -17,9 +20,11 @@ export function Chat(){
     const [username, setUsername] = React.useState("");
     const [chats, setChats] = React.useState([]); // {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
     const [messages, setMessages] = React.useState([]);
+    const [selectedChat, setSelectedChat] = React.useState(null);
 
     const [searchQuery, setSearchQuery] = React.useState("");
     const [usersFound, setUsersFound] = React.useState([]);
+    const [searchingForChat, setSearchingForChat] = React.useState(false);
 
     // Initialize WebSocket connection and set up event listeners
     React.useEffect(() => {
@@ -73,6 +78,17 @@ export function Chat(){
         }
     }, [messages]);
 
+    //load chats for the left side
+    const loadChats = async () => {
+        const response = await fetch('/api/chat/loadChats', {credentials: 'include'});
+        const data = await response.json();
+        setChats(data.sortedChats);
+    };
+
+    React.useEffect(() => {
+        loadChats();
+    }, []);
+
     //auto resize the textarea input
     const textareaRef = React.useRef(null);
     const [messageContents, setMessageContents] = React.useState("");
@@ -113,14 +129,29 @@ export function Chat(){
         }
 
         try {
-            const response = await fetch(`/api/chat/searchUsers?q=${encodeURIComponent(query)}`, {
-                credentials: 'include'
-            });
+            const response = await fetch(`/api/chat/searchUsers?q=${encodeURIComponent(query)}`, {credentials: 'include'});
             const data = await response.json();
             setUsersFound(data.users);
         } catch (error) {
             console.error("Error searching users:", error);
         }
+    };
+
+    const openChatWithUser = async (friendUsername) => {
+        //If chat exists, load that chat's messages and info into the right side of the chat window. 
+        //If not, create a new chat in the DB and open new chat window on the right
+        // connect websocket to the new chat room and load messages for that chat
+        const response = await fetch(`/api/chat/openChat`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ friendUsername })
+        });
+        const chat = await response.json();
+        loadChats();
+        setSelectedChat(chat.chatId);
     };
 
 
@@ -138,9 +169,24 @@ export function Chat(){
 
                 <div className='search-container'>
                     <input type="text" placeholder="🔍︎ Search" className="search-bar" 
-                        value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value); searchUsers(e.target.value); }} 
+                        value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value); searchUsers(e.target.value); }}
+                        onClick={setSearchingForChat.bind(this, true)} onBlur={setSearchingForChat.bind(this, false)}
                         />
-                    
+                    {searchingForChat && (
+                        <div className='search-result-list'>
+                            {usersFound.map((user) => (
+                                <button key={user.username} className='search-result' 
+                                    onMouseDown={() => {
+                                        openChatWithUser(user.username);
+                                        setSearchingForChat(false);
+                                        setSearchQuery('');
+                                    }}
+                                >
+                                    {user.username}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <div className='list-body'>
@@ -148,14 +194,15 @@ export function Chat(){
                     {/* Map through chats and display them */}
 
                     {chats.map((chat) => (
-                        <div key={chat.id} className='chat-item'>
+                        <div key={chat.chatId} className='chat-item'>
                             <div className='chat-avatar' style={{ backgroundColor: chat.color }}>
-                                {chat.name[0]}
+                                {/* grab the username that is not self */}
+                                {chat.users.filter(u => u !== username)[0][0].toUpperCase()}
                             </div>
                             <div className='chat-info'>
                                 <div className='chat-name-and-time'>
-                                    <div className='chat-name'>{chat.name}</div>
-                                    <div className='chat-timestamp'>{chat.timestamp}</div>
+                                    <div className='chat-name'>{chat.users.filter(u => u !== username)[0]}</div>
+                                    <div className='chat-timestamp'>{chat.userTimestamp}</div>
                                 </div>
                                 <div className='last-message'>{chat.lastMessage}</div>
                             </div>
