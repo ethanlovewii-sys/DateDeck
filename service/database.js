@@ -106,7 +106,6 @@ async function getChatById(chatId) {
 }
 
 async function loadChats(user) {
-  console.log("database loadChats reached, user:", user.username);
     return chatCollection.find({ users: user.username }).toArray();
 }
 

@@ -42,5 +42,10 @@ router.get('/loadChats', verifyAuth, async (req, res) => {
     res.json({ sortedChats });
 });
 
+router.get('/getChat', verifyAuth, async (req, res) => {
+    const chatId = req.query.chatId;
+    const chat = await DB.getChatById(chatId);
+    res.json({ chat });
+});
 
 module.exports = router;

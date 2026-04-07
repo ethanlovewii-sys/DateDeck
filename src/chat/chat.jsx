@@ -2,6 +2,8 @@ import React from 'react';
 import './chat.css';
 import { CloseButton } from 'react-bootstrap';
 
+//curretnly working on having that chat open if you search for it
+
 //left off with openchatwithuser function, need to create a new chat in the DB and then load that chat's messages and info into the right side of the chat window. Also need to add a way to load existing chats when clicking on them in the left side list.
 
 // load messages from db
@@ -21,6 +23,8 @@ export function Chat(){
     const [chats, setChats] = React.useState([]); // {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
     const [messages, setMessages] = React.useState([]);
     const [selectedChat, setSelectedChat] = React.useState(null);
+    const [chatData, setChatData] = React.useState(null); //{users: ["self", "Emily"], accepted: true, lastMessage: "Can't wait to try this!", color: "#d8ffd8"}
+    const otherUser = chatData?.users.filter(u => u !== username)[0] || "";
 
     const [searchQuery, setSearchQuery] = React.useState("");
     const [usersFound, setUsersFound] = React.useState([]);
@@ -149,10 +153,26 @@ export function Chat(){
             },
             body: JSON.stringify({ friendUsername })
         });
-        const chat = await response.json();
+        const data = await response.json();
         loadChats();
-        setSelectedChat(chat.chatId);
+        setChatData(data.chat);
+        console.log("chat ID:", data.chat.chatId);
+        setSelectedChat(data.chat.chatId);
     };
+
+    React.useEffect(() => {
+        if (!selectedChat) return;
+
+        async function fetchChat() {
+            const res = await fetch(`/api/chat/getChat?chatId=${selectedChat}`, {
+                credentials: 'include'
+            });
+            const data = await res.json();
+            setChatData(data.chat);
+        }
+
+        fetchChat();
+    }, [selectedChat]);
 
 
     return (
@@ -194,7 +214,13 @@ export function Chat(){
                     {/* Map through chats and display them */}
 
                     {chats.map((chat) => (
-                        <div key={chat.chatId} className='chat-item'>
+                        <div key={chat.chatId} className='chat-item' 
+                        onClick={() => {
+                            if (selectedChat === chat.chatId) return;
+                            setChatData(null);
+                            setMessages([]);
+                            setSelectedChat(chat.chatId);
+                        }}>
                             <div className='chat-avatar' style={{ backgroundColor: chat.color }}>
                                 {/* grab the username that is not self */}
                                 {chat.users.filter(u => u !== username)[0][0].toUpperCase()}
@@ -215,39 +241,45 @@ export function Chat(){
             {/* Right side: Selected chat window */}
 
             <div className={`chat-window ${isDesktop ? 'chat-window-desktop' : 'chat-window-mobile'}`}>
-
-                <div className='chat-window-header'>
-                    <div className='chat-window-avatar-name'>
-                        <div className='chat-window-avatar' style={{ backgroundColor: "#ffd8d8" }}>
-                            J
-                        </div>
-                        <div className='chat-window-name'>
-                            Jamie
-                        </div>
-                    </div>
-                    <div className='chat-window-info'>
-                        𝒊
-                    </div>
-                </div>
-                <div className='chat-window-body' ref={chatBodyRef}>
-                    <div className='all-chat-messages'>
-                        {/* Map chat messages */}
-                        {messages.map((message, i) => (
-                            <div key={i} className={`chat-message ${
-                                message.sender === "self" ? "self-chat-message" : "friend-chat-message"
-                                }`}>
-                                {message.text}
+                {selectedChat && (
+                <div>
+                    <div className='chat-window-header'>
+                        <div className='chat-window-avatar-name'>
+                            <div className='chat-window-avatar' style={{ backgroundColor: chatData?.color || 'none' }}>
+                                {otherUser?.[0]?.toUpperCase() || ""}
                             </div>
-                        ))}
+                            <div className='chat-window-name'>
+                                {otherUser}
+                            </div>
+                        </div>
+                        <div className='chat-window-info'>
+                            𝒊
+                        </div>
                     </div>
-                </div>
-                <div className='chat-window-input'>
-                    <div className='message-input-container'>
-                        <textarea ref={textareaRef} className="message-input" value={messageContents}  rows={1} placeholder='Type a message...'
-                            onChange={(e) => {setMessageContents(e.target.value); autoResize(); }} />
-                        <button className='send-button' onClick={sendMessage}>🡩</button>
+                    <div className='chat-window-body' ref={chatBodyRef}>
+                        <div className='all-chat-messages'>
+                            {/* Map chat messages */}
+                            {messages.map((message, i) => (
+                                <div key={i} className={`chat-message ${
+                                    message.sender === "self" ? "self-chat-message" : "friend-chat-message"
+                                    }`}>
+                                    {message.text}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                    <div className='chat-window-input'>
+                        <div className='message-input-container'>
+                            <textarea ref={textareaRef} className="message-input" value={messageContents}  rows={1} placeholder='Type a message...'
+                                onChange={(e) => {setMessageContents(e.target.value); autoResize(); }} />
+                            <button className='send-button' onClick={sendMessage}>🡩</button>
+                        </div>
+                    </div>
+                </div>) || (
+                    <div className='no-chat-selected'>
+                        <p>Select a chat to start messaging</p>
+                    </div>
+                )}
             </div>
         </main>
     );
