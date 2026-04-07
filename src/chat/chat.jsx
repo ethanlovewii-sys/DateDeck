@@ -2,12 +2,6 @@ import React from 'react';
 import './chat.css';
 import { CloseButton } from 'react-bootstrap';
 
-// load messages from db
-// add searching and accepting requests
-
-//to do later
-//add user timestaps that update when the cards are loaded
-
 export function Chat(){
 
     const [isDesktop, setIsDesktop] = React.useState(false);
@@ -18,7 +12,10 @@ export function Chat(){
     const [username, setUsername] = React.useState("");
     const [chats, setChats] = React.useState([]); // {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
     const [messages, setMessages] = React.useState([]);
+
     const [selectedChat, setSelectedChat] = React.useState(null);
+    const selectedChatRef = React.useRef(null);
+
     const [chatData, setChatData] = React.useState(null); //{users: ["self", "Emily"], accepted: true, lastMessage: "Can't wait to try this!", color: "#d8ffd8"}
     const otherUser = chatData?.users.filter(u => u !== username)[0] || "";
 
@@ -27,6 +24,11 @@ export function Chat(){
     const [searchingForChat, setSearchingForChat] = React.useState(false);
 
     const [messageContents, setMessageContents] = React.useState("");
+
+    //sync selectedChat state with a ref for use in websocket onmessage event
+    React.useEffect(() => {
+        selectedChatRef.current = selectedChat;
+     }, [selectedChat]);
 
     // Initialize WebSocket connection and set up event listeners
     React.useEffect(() => {
@@ -39,8 +41,15 @@ export function Chat(){
         //Catches new messages
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
-
-            setMessages(prev => [...prev, message]);
+            console.log("raw data", event.data);
+            if (message.type === 'message' && message.payload.chatId === selectedChatRef.current) {
+                setMessages(prev => [...prev, message.payload]);
+                console.log("New message received:", message.payload);
+            }
+            console.log("message type:", message.type);
+            console.log("current chat id:", selectedChatRef.current);
+            console.log("message chat id:", message.payload?.chatId);
+            loadChats();
         };
 
         socket.onclose = () => {
@@ -122,23 +131,24 @@ export function Chat(){
     //Send message through websocket
     const sendMessage = () => {
         if (!messageContents.trim()) return;
+        console.log("after click send message:", messageContents);
+
+        if (socketRef.current.readyState !== WebSocket.OPEN) {
+            console.error("WebSocket is not open. Ready state:", socketRef.current.readyState);
+            return;
+        }
+
         const message = {
-            chatId: selectedChat,
+            chatId: selectedChatRef.current,
             sender: username,
             recipient: otherUser,
             text: messageContents,
             time: new Date().toISOString(),
         };
 
-        // socketRef.current.send(JSON.stringify(message));
-        fetch('/api/chat/saveMessage', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(message)
-        });
+        socketRef.current.send(JSON.stringify(
+            { type: 'message', payload: message }
+        ));
 
         setMessageContents("");
     };
@@ -189,6 +199,7 @@ export function Chat(){
         }
 
         fetchChat();
+        socketRef.current.send(JSON.stringify({ type: 'join', chatId: selectedChat }));
     }, [selectedChat]);
 
 

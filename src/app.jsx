@@ -8,7 +8,13 @@ import { Deck } from './deck/deck'
 import { Chat } from './chat/chat'
 import { Login } from './login/login'
 
-//Add a chat page where you can look up frineds by their name or username and send them messages or cards you've made.
+//Things to expand into
+//  Add feature to send cards to friends and add cards friends have sent you
+//  Enable mobile view for chat
+//  User friendly time stamps on chats
+//  Time stamp injections in chat after set amount of time has passed
+//  Add full deck view
+
 
 async function logout() {
     const response = await fetch(`/api/auth/logout`, {method: 'delete', credentials: 'include'});
