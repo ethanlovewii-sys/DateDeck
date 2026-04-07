@@ -14,4 +14,13 @@ router.get('/getUsername', verifyAuth, async (req, res) => {
     res.json({username: user.username});
 });
 
+//searching for user to chat with
+router.get('/searchUsers', verifyAuth, async (req, res) => {
+    const searchQuery = req.query.q;
+    if (!searchQuery) { return res.json({ users: [] }); }
+    const users = await DB.userSearching(searchQuery);
+    res.json(users);
+});
+
+
 module.exports = router;

@@ -14,7 +14,7 @@ h1 {
 }
 
 .chat-list{
-    min-width: 400px;
+    min-width: 500px;
     background-color: #fafafa;
     padding: 20px;
     height: 100%;
@@ -147,8 +147,8 @@ h1 {
 }
 
 .chat-window-info{
-    font-size: 30px;
-    width: 36px; height: 36px;
+    font-size: 25px;
+    width: 29px; height: 29px;
     color: #313131;
     border: 1px solid rgb(93, 93, 93);
     border-radius: 999px;
@@ -207,6 +207,48 @@ h1 {
 .chat-window-input{
     flex-shrink: 0;
     background-color: #fafafa;
-    padding: 20px;
-    border-top: 1px solid rgb(167, 167, 167);
+    padding: 15px; 
+    margin-bottom: 70px;
+}
+
+.message-input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;padding-left: 20px;
+    border-radius: 999px;
+    border: 1px solid rgb(167, 167, 167);
+    background-color: #f4f4f4;
+    border-radius: 999px;
+    overflow: hidden;
+    font-size: 17px;
+}
+
+.message-input{
+    width: 100%;
+    padding: 13px;
+    resize: none;
+    border: none;
+    background: none;
+    font-size: 17px;
+    overflow: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-height: 50px;
+    max-height: 130px;
+}
+
+.message-input:focus{
+    outline: none;
+}
+
+.send-button{
+    background: none;
+    border: none;
+    font-size: 18px;
+    width: 40px; height: 32px;
+    color: #222222;
+    margin-left: 10px; margin-right: 10px;
+    border-radius: 999px;
+    background-color: rgb(255, 176, 176);
 }

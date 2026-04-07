@@ -1,66 +1,49 @@
 import React from 'react';
 import './chat.css';
 
+//Look at websocket and DB stuff to see what happens next
+// Need to store messages
+// dynamic time dividers
+// load messages from db
+// add searching and accepting requests
+
 export function Chat(){
 
     const [isDesktop, setIsDesktop] = React.useState(false);
-    const [username, setUsername] = React.useState("");
-    const [chats, setChats] = React.useState([
-        {id: 1, name: "Jamie", lastMessage: "Yeah lets do this one", timestamp: "8:05pm", color: "#ffd8d8"},
-        {id: 2, name: "John", lastMessage: "Sounds fun!", timestamp: "7:45pm", color: "#d8e7ff"},
-        {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
-    ]);
 
-const messages = [
-  {
-    sender: "friend",
-    text: "Hey, do you want to try out that new restaurant this weekend?"
-  },
-  {
-    sender: "self",
-    text: "Yeah, that sounds great! What day were you thinking?"
-  },
-  {
-    sender: "friend",
-    text: "maybe Saturday? I heard they have amazing brunch!"
-  },
-  {
-    sender: "self",
-    text: "Saturday works for me! What time should we meet?"
-  },
-  {
-    sender: "friend",
-    text: "I was thinking around 10 AM?"
-  },
-  {
-    sender: "self",
-    text: "10 AM is perfect! I'm really looking forward to it!"
-  },
-  {
-    sender: "friend",
-    text: "Hey, do you want to try out that new restaurant this weekend?"
-  },
-  {
-    sender: "self",
-    text: "Yeah, that sounds great! What day were you thinking?"
-  },
-  {
-    sender: "friend",
-    text: "maybe Saturday? I heard they have amazing brunch!"
-  },
-  {
-    sender: "self",
-    text: "Saturday works for me! What time should we meet?"
-  },
-  {
-    sender: "friend",
-    text: "I was thinking around 10 AM?"
-  },
-  {
-    sender: "self",
-    text: "10 AM is perfect! I'm really looking forward to it!"
-  }
-];
+    //Websocket connection
+    const socketRef = React.useRef(null);
+
+    const [username, setUsername] = React.useState("");
+    const [chats, setChats] = React.useState([]); // {id: 3, name: "Emily", lastMessage: "Can't wait to try this!", timestamp: "6:30pm", color: "#d8ffd8"},
+    const [messages, setMessages] = React.useState([]);
+
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const [usersFound, setUsersFound] = React.useState([]);
+
+    // Initialize WebSocket connection and set up event listeners
+    React.useEffect(() => {
+        const socket = new WebSocket("ws://localhost:3001");
+
+        socket.onopen = () => {
+            console.log("Frontend connected to WebSocket");
+        };
+
+        //Catches new messages
+        socket.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            setMessages(prev => [...prev, message]);
+        };
+
+        socket.onclose = () => {
+            console.log("Frontend disconnected from WebSocket");
+        };
+
+        socketRef.current = socket;
+
+        return () => socket.close();
+    }, []);
 
     // Check for mobile vs desktop
     React.useEffect(() => {
@@ -90,6 +73,56 @@ const messages = [
         }
     }, [messages]);
 
+    //auto resize the textarea input
+    const textareaRef = React.useRef(null);
+    const [messageContents, setMessageContents] = React.useState("");
+    const autoResize = () => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(50, textarea.scrollHeight) + 'px';
+
+        textarea.style.overflowY = textarea.scrollHeight > 130 ? 'auto' : 'hidden';
+    };
+
+    React.useEffect(() => {
+        autoResize();
+    }, [messageContents]);
+
+
+    //Send message through websocket
+    const sendMessage = () => {
+        if (!messageContents.trim()) return;
+
+        const message = {
+            sender: "self",
+            text: messageContents,
+            timestamp: new Date()
+        };
+
+        socketRef.current.send(JSON.stringify(message));
+
+        setMessageContents("");
+    };
+
+    // Pulls users that match the search query for starting new chats
+    const searchUsers = async (query) => {
+        if (!query.trim()) {
+            setUsersFound([]);
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/chat/searchUsers?q=${encodeURIComponent(query)}`, {
+                credentials: 'include'
+            });
+            const data = await response.json();
+            setUsersFound(data.users);
+        } catch (error) {
+            console.error("Error searching users:", error);
+        }
+    };
+
 
     return (
         <main className={`chat-layout ${isDesktop ? 'desktop' : 'mobile'}`}>
@@ -104,7 +137,10 @@ const messages = [
                 </div>
 
                 <div className='search-container'>
-                    <input sender="text" placeholder="🔍︎ Search" className="search-bar"/>
+                    <input type="text" placeholder="🔍︎ Search" className="search-bar" 
+                        value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value); searchUsers(e.target.value); }} 
+                        />
+                    
                 </div>
 
                 <div className='list-body'>
@@ -146,7 +182,6 @@ const messages = [
                         𝒊
                     </div>
                 </div>
-{/* Make chat start at bottom then add the input layer */}
                 <div className='chat-window-body' ref={chatBodyRef}>
                     <div className='all-chat-messages'>
                         {/* Map chat messages */}
@@ -160,7 +195,11 @@ const messages = [
                     </div>
                 </div>
                 <div className='chat-window-input'>
-                    <input sender="text" placeholder="Type a message..." className="message-input"/>
+                    <div className='message-input-container'>
+                        <textarea ref={textareaRef} className="message-input" value={messageContents}  rows={1} placeholder='Type a message...'
+                            onChange={(e) => {setMessageContents(e.target.value); autoResize(); }} />
+                        <button className='send-button' onClick={sendMessage}>🡩</button>
+                    </div>
                 </div>
             </div>
         </main>

@@ -33,6 +33,13 @@ main{
     min-height: 0;
 }
 
+.login-header{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    background: #fafafa;
+}
+
 .login-footer{
     height: 28px;
     position: fixed;

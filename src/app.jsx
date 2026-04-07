@@ -25,7 +25,7 @@ function Layout({children}) {
         <div className="app-layout">
             {isLogin && (
                 <header className="login-header">
-                    <img src = "/datedeck.png" className = "mx-auto d-block mb-5 py-1 title"/>
+                    <img src = "/datedeck.png" className = "mx-auto d-block mb-5 py-1"/>
                 </header>
             )}
 

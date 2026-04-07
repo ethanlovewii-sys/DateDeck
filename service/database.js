@@ -17,6 +17,7 @@ async function connectToDb() {
 const db = client.db('datedeck');
 const userCollection = db.collection('user');
 const deckCollection = db.collection('deck');
+const messageCollection = db.collection('messages');
 
 //Authentication
 function getUser(username) {
@@ -58,6 +59,16 @@ async function useCard(user, cardId) {
     await deckCollection.updateOne({ username: user.username, id: cardId }, { $set: {used: true}});
 }
 
+//For chat messages
+async function saveMessage(message) {
+    await messageCollection.insertOne(message);
+}
+
+//searching for user to chat with
+async function userSearching(username) {
+  return userCollection.find({ username: { $regex: username, $options: 'i' } }).limit(5).toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -67,5 +78,6 @@ module.exports = {
   getCards,
   addCard,
   useCard,
-  connectToDb
+  connectToDb,
+  saveMessage
 };
