@@ -1,7 +1,8 @@
-const WebSocket = require('ws');
 const { saveMessage } = require('./database');
 
-const wss = new WebSocket.Server({ port: 3001 });
+const { WebSocketServer } = require('ws');
+
+const wss = new WebSocketServer({port: 3000});
 
 const chatRooms = new Map();
 
@@ -58,4 +59,4 @@ wss.on('connection', (ws) => {
     });
 });
 
-console.log("WebSocket server running on port 3001");
+console.log("WebSocket server running on port 3000");

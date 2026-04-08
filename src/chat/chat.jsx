@@ -32,7 +32,7 @@ export function Chat(){
 
     // Initialize WebSocket connection and set up event listeners
     React.useEffect(() => {
-        const socket = new WebSocket("ws://localhost:3001");
+        const socket = new WebSocket("wss://startup.datedeck.click");
 
         socket.onopen = () => {
             console.log("Frontend connected to WebSocket");
@@ -195,7 +195,15 @@ export function Chat(){
         }
 
         fetchChat();
-        socketRef.current.send(JSON.stringify({ type: 'join', chatId: selectedChat }));
+
+        if (socketRef.readyState === WebSocket.OPEN){
+            socketRef.current.send(JSON.stringify({ type: 'join', chatId: selectedChat }));
+        } else {
+            socketRef.current.onopen = () => {
+                socketRef.current.send(JSON.stringify({ type: 'join', chatId: selectedChat }));
+            };        
+        }
+
     }, [selectedChat]);
 
 

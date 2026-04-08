@@ -1,5 +1,3 @@
-console.log("file reached");
-
 process.on('uncaughtException', err => {
   console.error('Uncaught Exception:', err);
 });
