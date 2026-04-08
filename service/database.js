@@ -97,8 +97,7 @@ async function getChatById(chatId) {
             accepted: false,
             lastMessage: "",
             color: getRandomPastelColor(),
-            privateTimestamp: new Date().toISOString(),
-            userTimestamp:"",
+            timestamp: new Date().toISOString(),
         };
         await chatCollection.insertOne(newChat);
         return newChat;
@@ -112,7 +111,8 @@ async function loadChats(user) {
 
 async function saveMessage(message) {
     await messageCollection.insertOne(message);
-    await chatCollection.updateOne({ chatId: message.chatId }, { $set: { lastMessage: message.text, privateTimestamp: message.time } });
+    await chatCollection.updateOne({ chatId: message.chatId }, { $set: { lastMessage: message.text, timestamp: message.time } });
+    console.log("time", message.time)
 }
 
 async function getMessagesByChatId(chatId) {

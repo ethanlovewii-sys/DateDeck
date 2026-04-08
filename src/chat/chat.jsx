@@ -41,14 +41,10 @@ export function Chat(){
         //Catches new messages
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
-            console.log("raw data", event.data);
             if (message.type === 'message' && message.payload.chatId === selectedChatRef.current) {
                 setMessages(prev => [...prev, message.payload]);
-                console.log("New message received:", message.payload);
             }
-            console.log("message type:", message.type);
-            console.log("current chat id:", selectedChatRef.current);
-            console.log("message chat id:", message.payload?.chatId);
+            console.log("timestamp", message.payload.time)
             loadChats();
         };
 
@@ -256,7 +252,12 @@ export function Chat(){
                             <div className='chat-info'>
                                 <div className='chat-name-and-time'>
                                     <div className='chat-name'>{chat.users.filter(u => u !== username)[0]}</div>
-                                    <div className='chat-timestamp'>{chat.userTimestamp}</div>
+                                    <div className='chat-timestamp'>
+                                          {chat.timestamp ? new Date(chat.timestamp).toLocaleTimeString([], {
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }) : ""}
+                                    </div>
                                 </div>
                                 <div className='last-message'>{chat.lastMessage}</div>
                             </div>

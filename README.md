@@ -123,8 +123,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - service/webSocket.js listens for connections on line 8
+- [x] **Frontend makes WebSocket connection** - src/chat/chat.jsx makes websocket connection starting on line 34
+- [x] **Data sent over WebSocket connection** - service/webSocket.js sends the users message to the connected users in the correct chatroom on line 39
+- [x] **WebSocket data displayed** - src/chat/chat.jsx displays new messages recieved on line 45
+- [x] **Application is fully functional** - DateDeck is fully functional. You can Login, add cards, look at and use cards, and send chats to friends.

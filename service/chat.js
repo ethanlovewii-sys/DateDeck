@@ -38,7 +38,7 @@ router.get('/loadChats', verifyAuth, async (req, res) => {
     }
     console.log("user:", user.username);
     const chats = await DB.loadChats(user);
-    const sortedChats = chats.sort((a, b) => new Date(b.privateTimestamp) - new Date(a.privateTimestamp)); // Sort chats by most recent message
+    const sortedChats = chats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Sort chats by most recent message
     res.json({ sortedChats });
 });
 
