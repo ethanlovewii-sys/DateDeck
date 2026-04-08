@@ -9,24 +9,39 @@ process.on('unhandledRejection', err => {
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const app = express();
+const http = require('http');
 
 const { connectToDb } = require('./database');
 
+// Routes
 const { router: authRoutes } = require('./auth');
 const deckRoutes = require('./deck');
 const chatRoutes = require('./chat');
 
+// ✅ Import WebSocket setup function
+const { setupWebSocket } = require('./webSocket');
+
+const app = express();
+
 const port = process.env.PORT || 4000;
 
+// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(express.json());
 
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/deck', deckRoutes);
 app.use('/api/chat', chatRoutes);
 
+// ✅ Create HTTP server from Express
+const server = http.createServer(app);
+
+// ✅ Attach WebSocket to the same server
+setupWebSocket(server);
+
+// Start server
 async function startServer() {
   console.log("Starting server...");
 
@@ -38,10 +53,8 @@ async function startServer() {
     console.error("DB FAILED:", err);
   }
 
-  console.log("Starting Express...");
-
-  app.listen(port, '0.0.0.0', () => {
-    console.log(`Listening on port ${port}`);
+  server.listen(port, '0.0.0.0', () => {
+    console.log(`HTTP + WebSocket server running on port ${port}`);
   });
 }
 

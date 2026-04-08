@@ -145,6 +145,7 @@ export function Chat(){
         socketRef.current.send(JSON.stringify(
             { type: 'message', payload: message }
         ));
+        console.log("messgae sent", message)
 
         setMessageContents("");
     };
@@ -196,7 +197,7 @@ export function Chat(){
 
         fetchChat();
 
-        if (socketRef.readyState === WebSocket.OPEN){
+        if (socketRef.current.readyState === WebSocket.OPEN){
             socketRef.current.send(JSON.stringify({ type: 'join', chatId: selectedChat }));
         } else {
             socketRef.current.onopen = () => {
