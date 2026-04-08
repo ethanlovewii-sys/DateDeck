@@ -123,7 +123,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **Backend listens for WebSocket connection** - service/webSocket.js listens for connections on line 8
+- [x] **Backend listens for WebSocket connection** - service/webSocket.js listens for connections on line 9
 - [x] **Frontend makes WebSocket connection** - src/chat/chat.jsx makes websocket connection starting on line 34
 - [x] **Data sent over WebSocket connection** - service/webSocket.js sends the users message to the connected users in the correct chatroom on line 39
 - [x] **WebSocket data displayed** - src/chat/chat.jsx displays new messages recieved on line 45
