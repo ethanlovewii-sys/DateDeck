@@ -28,9 +28,9 @@ function setupWebSocket(server) {
 
             if (socketMessage.type === 'message') {
                 const message = socketMessage.payload;
-                console.log("message websocket recieved", message)
 
                 await saveMessage(message);
+                console.log("broadcasting message", message);
 
                 const clients = chatRooms.get(message.chatId) || [];
 

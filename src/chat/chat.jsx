@@ -1,5 +1,9 @@
 import React from 'react';
 import './chat.css';
+import '../deck/deck.css'
+
+//Seperate self and other and the chat messages so that the card will render
+//figure out why the cards arent rendering
 
 export function Chat(){
 
@@ -129,7 +133,6 @@ export function Chat(){
     //Send message through websocket
     const sendMessage = () => {
         if (!messageContents.trim()) return;
-        console.log("after click send message:", messageContents);
 
         if (socketRef.current.readyState !== WebSocket.OPEN) {
             console.error("WebSocket is not open. Ready state:", socketRef.current.readyState);
@@ -140,14 +143,14 @@ export function Chat(){
             chatId: selectedChatRef.current,
             sender: username,
             recipient: otherUser,
-            text: messageContents,
+            content: messageContents,
+            card: false,
             time: new Date().toISOString(),
         };
 
         socketRef.current.send(JSON.stringify(
             { type: 'message', payload: message }
         ));
-        console.log("messgae sent", message)
 
         setMessageContents("");
     };
@@ -209,12 +212,45 @@ export function Chat(){
 
     }, [selectedChat]);
 
+    const containerRef = React.useRef(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setSelectingCard(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const selectCard = async () => {
         setSelectingCard(true);
         const response = await fetch(`/api/deck/loadCards`, {credentials: 'include'});
         const data = await response.json();
         console.log("cards to select", data);
         setCardsToSelect(data);
+    };
+
+    const sendCard = async (card) => {
+        const message = {
+            chatId: selectedChatRef.current,
+            sender: username,
+            recipient: otherUser,
+            content: card,
+            time: new Date().toISOString(),
+            card: true,
+        };
+
+        if (socketRef.current.readyState !== WebSocket.OPEN) {
+            console.error("WebSocket is not open. Ready state:", socketRef.current.readyState);
+            return;
+        }
+
+        socketRef.current.send(JSON.stringify({ type: 'message', payload: message }));
+        setSelectingCard(false);
+        console.log("sent card message", message);
     };
 
 
@@ -308,31 +344,56 @@ export function Chat(){
                         <div className='all-chat-messages'>
                             {/* Map chat messages */}
                             {messages.map((message, i) => (
-                                <div key={i} className={`chat-message ${
-                                    message.sender === username ? "self-chat-message" : "friend-chat-message"
-                                    }`}>
-                                    {message.text}
+                            <div
+                                key={i}
+                                className={`chat-message ${
+                                    message.sender === username
+                                        ? "self-chat-message"
+                                        : "friend-chat-message"
+                                } ${message.card ? "card-message" : ""}`}
+                            >
+                                    {message.card ? (
+                                        <div className={`date-card`}>
+                                            test
+                                            <h3 className="card-number">{message.content.id}❤︎</h3>
+                                            <div className="card-title-container">
+                                                <h3 className="card-title">{message.content.title}</h3>
+                                            </div>
+                                            <img src={message.content.img || 'card_form_img.jpg'} className = "date-img"/>
+                                            <div className="card-description">
+                                                <textarea className="description" readOnly = {true} defaultValue={message.content.description}/>
+                                            </div>
+                                        <div className="card-tags">
+                                            {message.content.tags?.map(tag => <span className ="card-tag" key={tag}>{tag}</span>)}
+                                        </div>
+                                        <h3 className="bottom-card-number">{message.content.id}❤︎</h3>
+                                    </div>
+                                    ) : (
+                                        message.content
+                                    )}
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className='chat-window-input'>
-                        {selectingCard && (
-                            <div className='card-selection-container'>
-                                {!cardsToSelect || cardsToSelect.length === 0 ? (
-                                    <div className='no-cards'>
-                                        No cards available
-                                    </div>
-                                ) : (
-                                    cardsToSelect.map(card => (
-                                        <div key={card.id} className='card-option'>
-                                            {card.id}❤︎ {card.title}
+                        <div ref={containerRef}>
+                            {selectingCard && (
+                                <div className='card-selection-container'>
+                                    {!cardsToSelect || cardsToSelect.length === 0 ? (
+                                        <div className='no-cards'>
+                                            No cards available
                                         </div>
-                                    ))
-                                )}
-                            </div>
-                        )}
-                        <div tabIndex={0}className='send-card-button-container' onClick={selectCard} onBlur={() => setSelectingCard(false)}>
+                                    ) : (
+                                        cardsToSelect.map(card => (
+                                            <div key={card.id} className='card-option' onClick={() => sendCard(card)}>
+                                                {card.id}❤︎ {card.title}
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                        <div tabIndex={0}className='send-card-button-container' onClick={selectCard} >
                             <img src="/send_card_icon.png" alt="send-card-icon" className='send-card-button'/>
                         </div>
                         <div className='message-input-container'>
