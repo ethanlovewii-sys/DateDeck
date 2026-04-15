@@ -244,9 +244,63 @@ h1 {
 }
 
 .chat-window-input{
+    position: relative;
+    display: flex;
+    flex-direction: row;
     flex-shrink: 0;
     background-color: #fafafa;
-    padding: 15px; 
+    padding: 15px; padding-bottom: 0px;
+}
+
+.card-selection-container{
+    position: absolute;
+    bottom: 100%; left: 15px;
+    margin-bottom: 5px;
+
+    background-color: #fff;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 8px;
+
+    width: 300px;
+    z-index: 1000;
+    min-height: 50px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card-option{
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(167, 167, 167);
+    background: none;
+}
+
+.card-option:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.send-card-button-container{
+    width: 51.5px; height: 51.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgb(167, 167, 167);
+    background-color: #f4f4f4;
+    border-radius: 999px;
+    padding: 5px;
+    margin-right: 7px;
+}
+
+.send-card-button{
+    width: 100%; 
+}
+
+.send-card-button-container:hover{
+    cursor: pointer;
+    background-color: #e1e1e1;
 }
 
 .message-input-container{

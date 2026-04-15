@@ -1,6 +1,5 @@
 import React from 'react';
 import './chat.css';
-import { CloseButton } from 'react-bootstrap';
 
 export function Chat(){
 
@@ -24,6 +23,9 @@ export function Chat(){
     const [searchingForChat, setSearchingForChat] = React.useState(false);
 
     const [messageContents, setMessageContents] = React.useState("");
+
+    const [selectingCard, setSelectingCard] = React.useState(false);
+    const [cardsToSelect, setCardsToSelect] = React.useState([]); 
 
     //sync selectedChat state with a ref for use in websocket onmessage event
     React.useEffect(() => {
@@ -207,6 +209,14 @@ export function Chat(){
 
     }, [selectedChat]);
 
+    const selectCard = async () => {
+        setSelectingCard(true);
+        const response = await fetch(`/api/deck/loadCards`, {credentials: 'include'});
+        const data = await response.json();
+        console.log("cards to select", data);
+        setCardsToSelect(data);
+    };
+
 
     return (
         <main className={`chat-layout ${isDesktop ? 'desktop' : 'mobile'}`}>
@@ -307,6 +317,24 @@ export function Chat(){
                         </div>
                     </div>
                     <div className='chat-window-input'>
+                        {selectingCard && (
+                            <div className='card-selection-container'>
+                                {!cardsToSelect || cardsToSelect.length === 0 ? (
+                                    <div className='no-cards'>
+                                        No cards available
+                                    </div>
+                                ) : (
+                                    cardsToSelect.map(card => (
+                                        <div key={card.id} className='card-option'>
+                                            {card.id}❤︎ {card.title}
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        )}
+                        <div tabIndex={0}className='send-card-button-container' onClick={selectCard} onBlur={() => setSelectingCard(false)}>
+                            <img src="/send_card_icon.png" alt="send-card-icon" className='send-card-button'/>
+                        </div>
                         <div className='message-input-container'>
                             <textarea ref={textareaRef} className="message-input" value={messageContents}  rows={1} placeholder='Type a message...'
                                 onChange={(e) => {setMessageContents(e.target.value); autoResize(); }} />

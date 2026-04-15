@@ -36,7 +36,6 @@ router.get('/loadChats', verifyAuth, async (req, res) => {
     if (!user) {
         return res.status(401).json({ msg: 'Unauthorized, no user found' });
     }
-    console.log("user:", user.username);
     const chats = await DB.loadChats(user);
     const sortedChats = chats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Sort chats by most recent message
     res.json({ sortedChats });

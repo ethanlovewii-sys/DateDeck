@@ -11,8 +11,8 @@ async function grabUser(req) {
 
 router.get('/loadCards', verifyAuth, async (req, res) => {
     const user = await grabUser(req);
-
     const unusedCards = await DB.getCards(user);
+    console.log("unused cards", unusedCards);
     res.json(unusedCards);
 });
 
@@ -46,7 +46,6 @@ router.get('/image/:title', async (req, res) => {
 });
 
 router.post('/useCard', async (req, res) => {
-    console.log("reached backend")
     const user = await grabUser(req)
     const {id} = req.body;
     await DB.useCard(user, id)
