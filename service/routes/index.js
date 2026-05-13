@@ -11,7 +11,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const http = require('http');
 
-const { connectToDb } = require('./database');
+const { connectToDb } = require('../database');
 
 // Routes
 const { router: authRoutes } = require('./auth');
@@ -19,7 +19,7 @@ const deckRoutes = require('./deck');
 const chatRoutes = require('./chat');
 
 // ✅ Import WebSocket setup function
-const { setupWebSocket } = require('./webSocket');
+const { setupWebSocket } = require('../webSocket');
 
 const app = express();
 
